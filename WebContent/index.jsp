@@ -7,6 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>Hello, World</p>
+
+	<%
+		// Java Coding
+		String myName = "John" ;
+	%>
+	
+	<% for( int i = 0; i < 10 ; i ++ ) { %>
+	
+		<h1> <%= i %> Good Morning! <%= myName %> </h1>
+			
+	<%
+		}
+	%>
+
 </body>
 </html>
