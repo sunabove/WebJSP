@@ -85,3 +85,4 @@ local.properties
 #.project
 /target
 /src/test
+/WebContent/my
