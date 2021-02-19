@@ -1,0 +1,30 @@
+<script>
+    console.log( "hello... %d", 1 );
+</script>
+
+<script>
+    var d = document ;
+    d.write( "<h3>Fibonacci series</h3>" );
+
+    var f0 = 1;
+    var f1 = 1;
+    var f;
+
+    d.write( "<ol>") ;
+    var lineNo = 1; 
+
+    while( lineNo < 100 && f0 <= f1 ) {
+        f = f0 + f1 ; 
+        f0 = f1;
+        f1 = f;
+        if( f0 <= f1 ) { 
+           d.write( "<li>" + f1 + "</li>"  );
+        }
+        
+        lineNo ++ ; 
+    }
+
+    d.write( "</ol>")
+
+    d.write( "<h3>Good bye!</h3>" );
+</script>
