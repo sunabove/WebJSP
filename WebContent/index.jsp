@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +11,13 @@
 
 	<%
 		// Java Coding
+		// Java 코드는 서버에서 실행된다.
 		String myName = "John" ;
 	%>
 	
 	<% for( int i = 0; i < 10 ; i ++ ) { %>
 	
-		<h1> <%= i %> Good Morning! <%= myName %> </h1>
+		<h1> Hello ... Good Morning! <%= myName %> </h1>
 			
 	<%
 		}

@@ -27,7 +27,9 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		var writer = response.getWriter();
+		
+		writer.append( "<h1>Hello...Good Morning</h1>" );
 	}
 
 	/**
