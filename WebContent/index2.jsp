@@ -10,16 +10,16 @@
 <body>
 
 	<%
-	// Java Coding
-	// Java 코드는 서버에서 실행된다.
-	String myName = "John";
+		// Java Coding
+		// Java 코드는 서버에서 실행된다.
+		String myName = "John";
+		
+		// String out ; -- Error 
 	
-	// String out ; -- Error 
-
-	for (int i = 0; i < 10; i++) {
-		String text = "<h1> Hello ... Good Morning ! </h1>";
-		out.write(text);
-	}
+		for (int i = 0; i < 10; i++) {
+			String text = "<h1> Hello ... Good Morning ! </h1>";
+			out.write(text);
+		}
 	%>
 
 </body>

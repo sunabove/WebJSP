@@ -1,8 +1,5 @@
 package web;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 
 public class User implements java.io.Serializable {
+	private static final long serialVersionUID = -704899523852130939L;
+	
 	private String id ;
 	private String name;
 	private String phoneNo;
 	private String passwd;
-	
-	// test 
 	
 	public static void main(String[] args) {
 		User user = new User();

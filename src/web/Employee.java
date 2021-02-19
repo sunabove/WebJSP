@@ -1,8 +1,5 @@
 package web;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
