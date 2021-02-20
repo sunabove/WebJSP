@@ -1,4 +1,4 @@
-package lec;
+package lec.mapper;
 
 import java.io.InputStream;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class UserMapperTest {
+public class EmployeeMapperTest {
 
 	public static void main(String[] args) throws Exception {
 		InputStream inputStream = Resources.getResourceAsStream( "mybatis-config.xml" );
@@ -16,29 +16,25 @@ public class UserMapperTest {
 		
 		SqlSession session = sqlSessionFactory.openSession();
 		
-		UserMapper mapper = session.getMapper(UserMapper.class);
+		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 		
-		User user ;
-		user = new User(); 
-		user.setName( "john");
-		user.setPasswd( "admin");
+		Employee employee ;
+		employee = new Employee();
 		
-		mapper.insert(user);
+		mapper.insert(employee);
 		
-		user = mapper.selectOne(1);
-		System.out.println(user); 
+		employee = mapper.selectOne(1);
+		System.out.println(employee); 
 		
-		user.setName( "ABCDEF" );
-		mapper.update(user);
+		employee.setFirstName( "ABCDEF" );
+		mapper.update(employee);
 		
-		user = mapper.selectOne(12);
-		if( user != null ) { 
-			mapper.delete(user);
-		}
+		employee = mapper.selectOne(12);
+		mapper.delete(employee);
 		
-		List<User> users = mapper.selectAll();
+		List<Employee> employees = mapper.selectAll();
 		
-		for( User e : users ) {
+		for( Employee e : employees ) {
 			System.out.println( e );
 		} 
 		

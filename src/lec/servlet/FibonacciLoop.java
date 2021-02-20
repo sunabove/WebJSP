@@ -1,4 +1,4 @@
-package lec;
+package lec.servlet;
 
 public class FibonacciLoop {
 

@@ -1,4 +1,4 @@
-package lec;
+package lec.jdbc;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

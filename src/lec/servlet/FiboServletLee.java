@@ -1,4 +1,4 @@
-package lec;
+package lec.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/HelloServlet")
-public class HelloServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
+@WebServlet("/fiboServletLee")
+public class FiboServletLee extends HttpServlet { 
+	private static final long serialVersionUID = -393634178673644838L;
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
-    public HelloServlet() {
+    public FiboServletLee() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +28,30 @@ public class HelloServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		var writer = response.getWriter();
 		
-		for( int i = 0; i < 10 ; i ++ ) {
-			writer.append( "<h1>" + i + " Hello...Good Morning</h1>" ); 
+		int f0 = 1;
+		int f1 = 1;
+		int f;
+		
+		int lineNo = 0; 
+		
+		writer.append( "<html>" ); 
+		writer.append( "<ol>" ); 
+		while( lineNo < 50) {
+			if ( f1 < 0 ) {
+				break;
+			} else {
+				writer.append(  "<li>" + f1 + "</li>" ); 
+			}
+			f = f0 + f1 ; 
+			f0 = f1;
+			f1 = f;			
+			
+			lineNo ++ ; 
 		}
+		
+		writer.append( "</ol>" );
+		writer.append( "</html>" );  
+		
 	}
 
 	/**

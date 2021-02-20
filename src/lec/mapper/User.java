@@ -1,4 +1,4 @@
-package lec;
+package lec.mapper;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

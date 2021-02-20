@@ -1,4 +1,4 @@
-package lec;
+package lec.mapper;
 
 import java.util.List;
 
