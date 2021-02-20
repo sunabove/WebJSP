@@ -14,5 +14,7 @@
 <body>
 	<c:set var="text" value="${ 1 + 2 }" />
 	<c:out value="${ text }" />
+	${ text }
+	${ 'Hello' }
 </body>
 </html>

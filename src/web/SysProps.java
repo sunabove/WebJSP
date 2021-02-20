@@ -6,7 +6,7 @@ public class SysProps extends java.util.Properties {
 
 	public SysProps() {
 		try {
-			this.load( this.getClass().getResourceAsStream( "web_mail.properties") );
+			this.load( this.getClass().getResourceAsStream( "my_props.properties") );
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
