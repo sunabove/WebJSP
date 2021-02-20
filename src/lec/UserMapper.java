@@ -1,4 +1,4 @@
-package web;
+package lec;
 
 import java.util.List;
 

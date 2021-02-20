@@ -1,4 +1,4 @@
-package web;
+package lec;
 
 import java.io.InputStream;
 import java.util.List;

@@ -1,4 +1,4 @@
-package web;
+package lec;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

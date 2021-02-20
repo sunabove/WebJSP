@@ -1,4 +1,4 @@
-package web;
+package lec;
 
 public class FibonacciLoop {
 

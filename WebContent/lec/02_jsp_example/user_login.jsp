@@ -6,7 +6,7 @@
 <%@ page import="org.apache.ibatis.session.*"%>
 <%@ page import="org.mariadb.jdbc.Driver"%>
 
-<%@ page import="web.*"%>
+<%@ page import="lec.*"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
