@@ -17,26 +17,28 @@
 
    <body>
       <sql:setDataSource var = "snapshot" driver = "org.mariadb.jdbc.Driver"
-         url = "jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA"
-         user = "XCLICK_DEPLOY3"  password = "admin"/>
+         url = "jdbc:mariadb://localhost:3306/MY_SCHEMA"
+         user = "MY_USER"  password = "admin"/>
  
       <sql:query dataSource = "${snapshot}" var = "result">
-         SELECT * from Employees;
+         SELECT id, first_name, last_name, email, age from EMPLOYEE;
       </sql:query>
  
-      <table border = "1" width = "100%">
+      <table border="1" width="100%">
          <tr>
-            <th>Emp ID</th>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>EMAIL</th>
             <th>Age</th>
          </tr>
          
          <c:forEach var = "row" items = "${result.rows}">
             <tr>
                <td><c:out value = "${row.id}"/></td>
-               <td><c:out value = "${row.first}"/></td>
-               <td><c:out value = "${row.last}"/></td>
+               <td><c:out value = "${row.first_name}"/></td>
+               <td><c:out value = "${row.last_name}"/></td>
+               <td><c:out value = "${row.email}"/></td>
                <td><c:out value = "${row.age}"/></td>
             </tr>
          </c:forEach>
