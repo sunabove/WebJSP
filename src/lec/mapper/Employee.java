@@ -12,6 +12,8 @@ public class Employee implements java.io.Serializable {
 	private String id ;
 	private String firstName ;
 	private String lastName ;
+	private String email ;
+	private Integer age = 0 ;
 	private String phoneNo;
 	
 	public void testLog() {

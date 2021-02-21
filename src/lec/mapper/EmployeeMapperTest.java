@@ -20,6 +20,8 @@ public class EmployeeMapperTest {
 		
 		Employee employee ;
 		employee = new Employee();
+		employee.setFirstName( "My John");
+		employee.setEmail( "My John@google.com");
 		
 		mapper.insert(employee);
 		

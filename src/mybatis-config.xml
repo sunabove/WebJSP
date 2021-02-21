@@ -10,16 +10,15 @@
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="org.mariadb.jdbc.Driver" />
-				<property name="url" value="jdbc:mariadb://localhost:3306/XCLICK_DEPLOY3_LARGE_DATA" />
-				<property name="username" value="XCLICK_DEPLOY3" />
+				<property name="url" value="jdbc:mariadb://localhost:3306/MY_SCHEMA" />
+				<property name="username" value="MY_USER" />
 				<property name="password" value="admin" />
 			</dataSource>
 		</environment>
 	</environments>
 	
 	<mappers>		
-		<mapper class="web.EmployeeMapper" />
-		<mapper class="web.UserMapper" />
-		<mapper class="web.EmployeeGenMapper" />		
+		<mapper class="lec.mapper.EmployeeMapper" />
+		<mapper class="lec.mapper.UserMapper" /> 	
 	</mappers>
 </configuration>

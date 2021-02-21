@@ -15,9 +15,8 @@ public class JdbcEmployee {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String url = "jdbc:mariadb://localhost:3306/MY_SCHEMA";
-
-		Connection conn = DriverManager.getConnection(url, "MY_USER", "admin");		
+		// Create a database connection by using user name and password
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/MY_SCHEMA", "MY_USER", "admin");		
 		
 		Statement stmt = conn.createStatement();
 		
@@ -33,10 +32,11 @@ public class JdbcEmployee {
 		// creatte table using statement
 		String sql = """
 					CREATE TABLE employee ( 
-					  id int PRIMARY KEY AUTO_INCREMENT ,
-					  first_name VARCHAR(200) ,
+					  id INT PRIMARY KEY AUTO_INCREMENT ,
+					  first_name VARCHAR(200) NOT NULL ,
 					  last_name VARCHAR(200) ,
-					  email VARCHAR(200) ,
+					  email VARCHAR(200) NOT NULL ,
+					  age INT ,
 					  phone_no VARCHAR(200)
 					) ;				
 				""";
@@ -50,7 +50,7 @@ public class JdbcEmployee {
 		}
 		
 		// insert a record using statement
-		sql = "INSERT INTO employee(first_name, email) VALUES( 'john', 'john@google.com' )" ;
+		sql = "INSERT INTO employee(first_name, email, age ) VALUES( 'john', 'john@google.com', 18 )" ;
 		upNo = stmt.executeUpdate( sql );
 		
 		if( upNo >= 1 ) {
@@ -60,15 +60,19 @@ public class JdbcEmployee {
 		}
 		
 		// insert record using prepared statement		
-		sql = "INSERT INTO employee(first_name, email) VALUES( ?, ? )" ;
+		sql = "INSERT INTO employee(first_name, email, age) VALUES( ?, ?, ? )" ;
 		
 		PreparedStatement pst = conn.prepareStatement( sql );
-		String [][] records = { { "brown", "brown@gmail.com" }, { "jane", "jane@gmail.com" } }; 
+		Object [][] records = { { "brown", "brown@gmail.com", 20 }, { "jane", "jane@gmail.com", 22 } }; 
 		
 		for( var record : records ) {
 			var idx = 1; // Index starts from one.
 			for( var c : record ) {
-				pst.setString( idx ++, c );
+				if( c instanceof String ) { 
+					pst.setString( idx ++, "" + c );
+				} else if ( c instanceof Integer ) {
+					pst.setInt(idx, (int) c);
+				}
 			}
 			upNo = pst.executeUpdate();
 			if( upNo >= 1 ) {
@@ -79,7 +83,7 @@ public class JdbcEmployee {
 		}
 		
 		// query using prepared statement
-		sql = "SELECT first_name, email FROM employee where 1 = ?";
+		sql = "SELECT first_name, email, age FROM employee where 1 = ?";
 		pst = conn.prepareStatement( sql );
 		var idx = 1 ;
 		pst.setInt( idx ++, 1 );
@@ -89,7 +93,8 @@ public class JdbcEmployee {
 			idx = 1;
 			String firstName = rs.getString( idx ++ );
 			String email = rs.getString( idx ++ );
-			out.println( String.format( "first_name = %s, email = %s", firstName, email) );
+			Integer age = rs.getInt( idx ++ );
+			out.println( String.format( "first_name = %s, email = %s, age = %s", firstName, email, age) );
 		}
 		
 		// clear resources
