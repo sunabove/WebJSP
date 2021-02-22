@@ -73,14 +73,13 @@
       	<h3> A record is inserted. </h3>
       </c:if>
       
-      <c:set var="records" value="${[['Test', 'test@gmail.com', 20 ], [ 'jane', 'jane@gmail.com', 22 ]]}" />
-      
-      <c:forEach var="record" items="${ records }" >
+      <c:forTokens var="record" delims=";" items="Test, test@gmail.com, 20; jane, jane@gmail.com, 22"  >
+      	  <c:set var="item" value="${fn:split( record, ',' )}" />
       	  <sql:update dataSource="${myDb}" var="upNo">
       		INSERT INTO employee(first_name, email, age, up_dt ) VALUES( ?, ?, ?, ? )
-      		<sql:param value="${ record[0] }" />
-      		<sql:param value="${ record[1] }" />
-      		<sql:param value="${ record[2] }" />
+      		<sql:param value="${ item[0] }" />
+      		<sql:param value="${ item[1] }" />
+      		<sql:param value="${ item[2] }" />
       		<sql:param value="${ now }" />
       	  </sql:update>
       	  
@@ -90,7 +89,7 @@
 	      <c:if test="${ upNo eq 1 }" >
 	      	<h3> A record is inserted. </h3>
 	      </c:if> 
-      </c:forEach>
+      </c:forTokens>
       
  
  	  <!-- select table -->
