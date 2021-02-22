@@ -12,7 +12,7 @@
 <html>
    <head>
    		<meta charset="UTF-8" />
-      	<title>SELECT Operation</title>
+      	<title>EMPLOYEE TABLE</title>
    </head>
 
    <body>
@@ -21,7 +21,8 @@
          user = "MY_USER"  password = "admin"/>
  
       <sql:query dataSource = "${snapshot}" var = "result">
-         SELECT id, first_name, last_name, email, age from EMPLOYEE;
+         SELECT id, first_name, last_name, email, age from EMPLOYEE where 1 = ?
+         <sql:param>1</sql:param>
       </sql:query>
  
       <table border="1" width="100%">
