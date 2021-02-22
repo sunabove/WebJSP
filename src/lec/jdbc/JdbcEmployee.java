@@ -25,10 +25,8 @@ public class JdbcEmployee {
 		// drop table using statement
 		int upNo = stmt.executeUpdate( "DROP TABLE if exists EMPLOYEE" );
 		
-		if( upNo >= 1 ) {
-			out.println( "Employee tabled is deleted." );
-		} else {
-			out.println( "Employee tabled is not deleted." );
+		if( upNo == 0 ) {
+			out.println( "\nEmployee tabled is dropped." );
 		}
 		
 		// creatte table using statement
@@ -39,20 +37,19 @@ public class JdbcEmployee {
 					  last_name VARCHAR(200) ,
 					  email VARCHAR(200) NOT NULL ,
 					  age INT ,
-					  phone_no VARCHAR(200)
+					  phone_no VARCHAR(200) , 
+					  up_dt TIMESTAMP DEFAULT now() 
 					)			
 				""";
 		
 		upNo = stmt.executeUpdate( sql );
 		
-		if( upNo >= 1 ) {
+		if( upNo == 0 ) {
 			out.println( "Employee tabled is created." );
-		} else {
-			out.println( "Employee tabled is not created." );
 		}
 		
 		// insert a record using statement
-		sql = "INSERT INTO employee(first_name, email, age ) VALUES( 'john', 'john@google.com', 18 )" ;
+		sql = "INSERT INTO employee(first_name, email, age) VALUES( 'john', 'john@google.com', 18 )" ;
 		upNo = stmt.executeUpdate( sql );
 		
 		if( upNo >= 1 ) {
@@ -69,7 +66,7 @@ public class JdbcEmployee {
 		Object [][] records = { { "brown", "brown@gmail.com", 20 }, { "jane", "jane@gmail.com", 22 } }; 
 		
 		for( var record : records ) {
-			var idx = 1; // Index starts from one.
+			var idx = 1; // index starts from one.
 			for( var c : record ) {
 				if( c instanceof String ) { 
 					pst.setString( idx ++, "" + c );
@@ -95,14 +92,14 @@ public class JdbcEmployee {
 		
 		ResultSet rs = pst.executeQuery();
 		
-		out.println( "Query Result..." );
+		out.println( "\nQuery Result ..." );
 		
 		while( rs.next() ) {
 			idx = 1; // index 1 부터 시작 .
 			
 			String firstName = rs.getString( idx ++ );
 			String email = rs.getString( idx ++ );
-			Integer age = rs.getInt( idx ++ );
+			Integer age = rs.getInt( "age" );
 			
 			out.println( String.format( "first_name = %s, email = %s, age = %s", firstName, email, age) );
 		}
@@ -113,6 +110,6 @@ public class JdbcEmployee {
 		stmt.close();		
 		conn.close(); 
 		
-		out.println( "Good bye!" );		
+		out.println( "\nGood bye!" );		
 	} 
 }
