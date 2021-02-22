@@ -75,6 +75,7 @@
       
       <c:forTokens var="record" delims=";" items="Test, test@gmail.com, 20; jane, jane@gmail.com, 22"  >
       	  <c:set var="item" value="${fn:split( record, ',' )}" />
+      	  
       	  <sql:update dataSource="${myDb}" var="upNo">
       		INSERT INTO employee(first_name, email, age, up_dt ) VALUES( ?, ?, ?, ? )
       		<sql:param value="${ item[0] }" />
