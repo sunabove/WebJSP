@@ -97,7 +97,7 @@
 <form>
 	History 
 	<!-- 이전 기록 출력 -->
-	<select name="id" onchange="submit();">
+	<select name="id" onchange="a.name=''; b.name=''; operator.name=''; submit();">
 		<option value="" ></option>
 		<c:forEach var="row" items="${result.rows}">	
 			<option value="${ row.id }" ${ id eq row.id ? 'selected' : '' }>
@@ -107,15 +107,15 @@
 	</select>
 	<br/><br/>
 	
-	a = <input type="number" step="any" name="a" value="${ a }" size=3 /> <br/><br/>
-	o = <select name="operator">
+	a = <input type="number" step="any" name="a" id="a" value="${ a }" size=3 /> <br/><br/>
+	o = <select name="operator" id="operator" >
 			<option value="+" ${ operator == '+' ? 'selected' : '' } >+</option>
 			<option value="-" ${ operator eq '-' ? 'selected' : '' } >-</option>
 			<option value="*" ${ operator eq '*' ? 'selected' : '' } >*</option>
 			<option value="/" ${ operator eq '/' ? 'selected' : '' } >/</option>
 	     </select> 
 	     <br/><br/>
-	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
+	b = <input type="number" step="any" name="b" id="b" value="${ b }" size=3 /> <br/><br/>
 	c = <input type="number" step="any"         value="${ c }" size=3 readonly></input> <br/><br/>
 	
 	<input type="submit" name="" value="Calc" onclick="this.name='doCalc'; this.value=1;"/>
