@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 
 <c:set var="a" value="${ param.a }" />
 <c:set var="b" value="${ param.b }" />
 <c:set var="operator" value="${ param.operator }" /> 
-
-<c:set var="c" value="${ a + b }" />
 
 <c:if test="${ empty a and empty b }" >
 	<c:set var="c" value="" />
