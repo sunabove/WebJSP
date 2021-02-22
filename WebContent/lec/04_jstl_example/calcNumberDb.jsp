@@ -6,17 +6,18 @@
 <c:set var="a" value="${ param.a }" />
 <c:set var="operator" value="${ param.operator }" />
 <c:set var="b" value="${ param.b }" />
-<c:set var="id" value="${ param.id }" /> 
+<c:set var="id" value="${ param.id }" />  
+<c:set var="doCalc" value="${ param.doCalc }" /> 
 
 <c:if test="${ empty operator }" >
 	<c:set var="operator" value="+" /> 
 </c:if>
 
-<c:if test="${ empty a and empty b }" >
+<c:if test="${ empty doCalc }" >
 	<c:set var="c" value="${ '' }" />
 </c:if>
 
-<c:if test="${ not empty a and not empty b }" >
+<c:if test="${ not empty doCalc }" >
 	<c:if test="${ operator eq '+' }" >
 		<c:set var="c" value="${ a + b }" />
 	</c:if>
@@ -38,7 +39,7 @@
    
 <!-- create table -->
 <sql:update dataSource="${myDb}" var="upNo">
-  CREATE TABLE if not exists MY_CALC ( 
+  CREATE TABLE if not exists MY_CALC_SUN ( 
 	  id INT PRIMARY KEY AUTO_INCREMENT ,
 	  a VARCHAR(200) NOT NULL default '' ,
 	  operator VARCHAR(200) NOT NULL default '+',
@@ -47,10 +48,10 @@
   )
 </sql:update>
 
-<c:if test="${ (empty id) and ( not empty a or not empty b ) }" >
+<c:if test="${ (not empty doCalc) and ( not empty a or not empty b ) }" >
 	<!-- DB에 해당 연산 기록을 추가한다. -->
 	<sql:update dataSource="${myDb}" var="upNo">
-		INSERT INTO my_calc( a, operator, b, c ) VALUES ( ?, ?, ?, ? )
+		INSERT INTO MY_CALC_SUN( a, operator, b, c ) VALUES ( ?, ?, ?, ? )
 		<sql:param> ${ a }</sql:param>
 		<sql:param> ${ operator }</sql:param>
 		<sql:param> ${ b }</sql:param>
@@ -62,10 +63,10 @@
 	</c:if>
 </c:if>
 
-<c:if test="${ not empty id }" >
+<c:if test="${ empty doCalc and not empty id }" >
 	<!-- DB에서 id에 해당 연산 기록을 가져온다. -->
 	<sql:query dataSource="${myDb}" var="result">
-	   SELECT id, a, operator, b, c FROM MY_CALC WHERE id = ?
+	   SELECT id, a, operator, b, c FROM MY_CALC_SUN WHERE id = ?
 	   <sql:param>${ id }</sql:param>  
 	</sql:query> 
 	
@@ -80,7 +81,7 @@
 
 <!-- DB에서 이전 연산 기록을 모두 가져온다. -->
 <sql:query dataSource="${myDb}" var="result">
-   SELECT id, a, operator, b, c FROM MY_CALC order by ID desc  
+   SELECT id, a, operator, b, c FROM MY_CALC_SUN order by ID desc  
 </sql:query>
 
 <!DOCTYPE html>
@@ -99,14 +100,14 @@
 	<select name="id" onchange="submit();">
 		<option value="" ></option>
 		<c:forEach var="row" items="${result.rows}">	
-			<option value="${ row.id }" >
+			<option value="${ row.id }" ${ id eq row.id ? 'selected' : '' }>
 				${ row.a } ${ row.operator } ${ row.b } = ${ row.c }
 			</option>
 		</c:forEach>
 	</select>
 	<br/><br/>
+	
 	a = <input type="number" step="any" name="a" value="${ a }" size=3 /> <br/><br/>
-	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
 	o = <select name="operator">
 			<option value="+" ${ operator == '+' ? 'selected' : '' } >+</option>
 			<option value="-" ${ operator eq '-' ? 'selected' : '' } >-</option>
@@ -114,8 +115,10 @@
 			<option value="/" ${ operator eq '/' ? 'selected' : '' } >/</option>
 	     </select> 
 	     <br/><br/>
+	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
 	c = <input type="number" step="any"         value="${ c }" size=3 readonly></input> <br/><br/>
-	<input type="submit" value="계산해주세요." />
+	
+	<input type="submit" name="" value="Calc" onclick="this.name='doCalc'; this.value=1;"/>
 </form>
 
 </body>
