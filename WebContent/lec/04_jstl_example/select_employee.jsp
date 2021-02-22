@@ -25,6 +25,13 @@
       		DROP TABLE if exists EMPLOYEE
       </sql:update>
       
+      <c:if test="${ upNo eq 0 }" >
+      	<h3> Table is dropped. </h3>
+      </c:if>
+      <c:if test="${ upNo eq 1 }" >
+      	<h3> Table is not dropped. </h3>
+      </c:if>
+      
       <!-- create table -->
       <sql:update dataSource="${myDb}" var="upNo">
       		CREATE TABLE employee ( 
@@ -37,10 +44,24 @@
 			)
       </sql:update>
       
+      <c:if test="${ upNo eq 0 }" >
+      	<h3> Table is created. </h3>
+      </c:if>
+      <c:if test="${ upNo eq 1 }" >
+      	<h3> Table is not created. </h3>
+      </c:if>
+      
       <!-- insert record -->
       <sql:update dataSource="${myDb}" var="upNo">
       		INSERT INTO employee(first_name, email, age ) VALUES( 'john', 'john@google.com', 18 )
       </sql:update>
+      
+      <c:if test="${ upNo eq 0 }" >
+      	<h3> A record is not inserted. </h3>
+      </c:if>
+      <c:if test="${ upNo eq 1 }" >
+      	<h3> A record is inserted. </h3>
+      </c:if>
       
       <sql:update dataSource="${myDb}" var="upNo">
       		INSERT INTO employee(first_name, email, age ) VALUES( ?, ?, ? )
@@ -48,6 +69,32 @@
       		<sql:param>brown@google.com</sql:param>
       		<sql:param>20</sql:param>
       </sql:update>
+      
+      <c:if test="${ upNo eq 0 }" >
+      	<h3> A record is not inserted. </h3>
+      </c:if>
+      <c:if test="${ upNo eq 1 }" >
+      	<h3> A record is inserted. </h3>
+      </c:if>
+      
+      <c:set var="records" value="${[ [ 'Test', 'test@gmail.com', 20 ], [ 'jane', 'jane@gmail.com', 22 ] ] }" />
+      
+      <c:forEach var="record" items="${ records }" >
+      	  <sql:update dataSource="${myDb}" var="upNo">
+      		INSERT INTO employee(first_name, email, age ) VALUES( ?, ?, ? )
+      		<sql:param> ${ record[0] } </sql:param>
+      		<sql:param> ${ record[1] } </sql:param>
+      		<sql:param> ${ record[2] } </sql:param>
+      	  </sql:update>
+      	  
+      	  <c:if test="${ upNo eq 0 }" >
+	      	<h3> A record is not inserted. </h3>
+	      </c:if>
+	      <c:if test="${ upNo eq 1 }" >
+	      	<h3> A record is inserted. </h3>
+	      </c:if> 
+      </c:forEach>
+      
  
  	  <!-- select table -->
       <sql:query dataSource="${myDb}" var="result">
@@ -64,7 +111,7 @@
             <th>Age</th>
          </tr>
          
-         <c:forEach var = "row" items = "${result.rows}">
+         <c:forEach var="row" items="${result.rows}">
             <tr>
                <td><c:out value = "${row.id}"/></td>
                <td><c:out value = "${row.first_name}"/></td>

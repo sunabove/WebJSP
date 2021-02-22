@@ -4,6 +4,12 @@
 
 <c:set var="a" value="${ param.a }" />
 <c:set var="b" value="${ param.b }" /> 
+
+<c:set var="c" value="${ a + b }" />
+
+<c:if test="${ empty a and empty b }" >
+	<c:set var="c" value="" />
+</c:if>
     
 <!DOCTYPE html>
 <html>
@@ -21,6 +27,7 @@
 	a2 = <input type="number" step="any"         value="${ a }" size=3 /> <br/><br/>
 	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
 	c = <input type="number" step="any"          value="${ a + b }" size=3 readonly></input> <br/><br/>
+	c2 = <input type="number" step="any"         value="${ c }" size=3 readonly></input> <br/><br/>
 	    <input type="submit" value="Sum" />
 </form>
 
