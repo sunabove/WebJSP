@@ -11,7 +11,7 @@
 	<c:set var="c" value="" />
 </c:if>
 
-<c:if test="${ operator == '+' }" >
+<c:if test="${ operator eq '+' }" >
 	<c:set var="c" value="${ a + b }" />
 </c:if>
 <c:if test="${ operator == '-' }" >
@@ -38,7 +38,7 @@
 	a = <input type="number" step="any" name="a" value="${ a }" size=3 /> <br/><br/>
 	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
 	o = <select name="operator">
-			<option value="+" ${ operator eq '+' ? 'selected' : '' } >+</option>
+			<option value="+" ${ operator == '+' ? 'selected' : '' } >+</option>
 			<option value="-" ${ operator eq '-' ? 'selected' : '' } >-</option>
 			<option value="*" ${ operator eq '*' ? 'selected' : '' } >*</option>
 			<option value="/" ${ operator eq '/' ? 'selected' : '' } >/</option>
