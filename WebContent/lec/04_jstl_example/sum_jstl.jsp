@@ -16,7 +16,9 @@
 <h1>Sum of Two Numbers</h1>
 
 <form>
+	<c:out value='${ a }'/> <br/><br/>
 	a = <input type="number" step="any" name="a" value="<c:out value='${ a }'/>" size=3 /> <br/><br/>
+	a2 = <input type="number" step="any"         value="${ a }" size=3 /> <br/><br/>
 	b = <input type="number" step="any" name="b" value="${ b }" size=3 /> <br/><br/>
 	c = <input type="number" step="any"          value="${ a + b }" size=3 readonly></input> <br/><br/>
 	    <input type="submit" value="Sum" />
