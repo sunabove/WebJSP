@@ -23,7 +23,6 @@
 </head>
 
 <body>
-
 	<h2>BBS 데이터베이스 초기화</h2>
 
 	<%
@@ -44,14 +43,14 @@
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-		PrintWriter logWriter = new PrintWriter( new PrintStream(baos, true, "utf8" )  );	
+		PrintWriter logWriter = new PrintWriter( new PrintStream(baos, true, "utf-8" )  );	
 		//Running the script
-		sr.setLogWriter(logWriter);
+		sr.setLogWriter(logWriter); 
 		sr.runScript(reader); 
 		logWriter.flush();
 		
 		out.println( "<pre>" );
-		out.println( baos.toString() );
+		out.println( baos.toString( "utf-8" ) );
 		out.println( "</pre>" );
 		
 		reader.close();

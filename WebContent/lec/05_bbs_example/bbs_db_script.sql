@@ -1,3 +1,5 @@
+-- Hello
+
 DROP TABLE if exists cricketer ;
 
 CREATE TABLE if not exists cricketer (
@@ -13,4 +15,7 @@ insert into cricketer values('Jonathan', 'Trott', DATE('1981-04-22'), 'CapeTown'
 insert into cricketer values('Kumara', 'Sangakkara', DATE('1977-10-27'), 'Matale', 'Srilanka');
 insert into cricketer values('Virat', 'Kohli', DATE('1988-11-05'), 'Delhi', 'India');
 insert into cricketer values('Rohit', 'Sharma', DATE('1987-04-30'), 'Nagpur', 'India');
+
 select * from cricketer;
+
+-- Good bye!
