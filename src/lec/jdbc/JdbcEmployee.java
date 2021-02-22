@@ -13,6 +13,8 @@ public class JdbcEmployee {
 		
 		out.println( "Hello ..." );
 		
+		// Driver 등록, 어떤 DBMS를 사용할 것인지를 설정한다.
+		
 		Class.forName("org.mariadb.jdbc.Driver");
 
 		// Create a database connection by using user name and password
@@ -82,7 +84,7 @@ public class JdbcEmployee {
 			}
 		}
 		
-		// query using prepared statement
+		// query using prepared statement, 재사용이 편리한 문장
 		sql = "SELECT first_name, email, age FROM employee where 1 = ?";
 		pst = conn.prepareStatement( sql );
 		var idx = 1 ;
