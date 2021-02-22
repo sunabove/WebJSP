@@ -32,7 +32,6 @@
 		Class.forName("org.mariadb.jdbc.Driver");
 
 		//Getting the connection
-		String mysqlUrl = "jdbc:mysql://localhost/talakai_noppi";
 		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/MY_SCHEMA", "MY_USER", "admin");
 
 		out.println("<h3>Connection established.</h3>");
@@ -41,7 +40,7 @@
 		ScriptRunner sr = new ScriptRunner(conn);
 		//Creating a reader object
 		
-		String path = "/DEV/Workspace/WebJSP/WebContent/lec/05_bbs_example/bbs_script.sql";
+		String path = "/DEV/Workspace/WebJSP/WebContent/lec/05_bbs_example/bbs_db_script.sql";
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
