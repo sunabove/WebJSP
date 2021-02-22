@@ -40,7 +40,7 @@ public class JdbcEmployee {
 					  email VARCHAR(200) NOT NULL ,
 					  age INT ,
 					  phone_no VARCHAR(200)
-					) ;				
+					)			
 				""";
 		
 		upNo = stmt.executeUpdate( sql );
@@ -65,6 +65,7 @@ public class JdbcEmployee {
 		sql = "INSERT INTO employee(first_name, email, age) VALUES( ?, ?, ? )" ;
 		
 		PreparedStatement pst = conn.prepareStatement( sql );
+		
 		Object [][] records = { { "brown", "brown@gmail.com", 20 }, { "jane", "jane@gmail.com", 22 } }; 
 		
 		for( var record : records ) {
@@ -74,9 +75,10 @@ public class JdbcEmployee {
 					pst.setString( idx ++, "" + c );
 				} else if ( c instanceof Integer ) {
 					pst.setInt(idx, (int) c);
-				}
+				} 
 			}
 			upNo = pst.executeUpdate();
+			
 			if( upNo >= 1 ) {
 				out.println( "Employee record is inserted. ");
 			} else {
@@ -85,17 +87,23 @@ public class JdbcEmployee {
 		}
 		
 		// query using prepared statement, 재사용이 편리한 문장
-		sql = "SELECT first_name, email, age FROM employee where 1 = ?";
+		sql = "SELECT first_name, email, age FROM employee where 2 = ? ";
 		pst = conn.prepareStatement( sql );
-		var idx = 1 ;
-		pst.setInt( idx ++, 1 );
+		
+		var idx = 1 ; // index 1 부터 시작 .
+		pst.setInt( idx ++, 2 );
+		
 		ResultSet rs = pst.executeQuery();
+		
 		out.println( "Query Result..." );
+		
 		while( rs.next() ) {
-			idx = 1;
+			idx = 1; // index 1 부터 시작 .
+			
 			String firstName = rs.getString( idx ++ );
 			String email = rs.getString( idx ++ );
 			Integer age = rs.getInt( idx ++ );
+			
 			out.println( String.format( "first_name = %s, email = %s, age = %s", firstName, email, age) );
 		}
 		
