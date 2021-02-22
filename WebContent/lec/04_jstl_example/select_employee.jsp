@@ -16,11 +16,42 @@
    </head>
 
    <body>
-      <sql:setDataSource var = "snapshot" driver = "org.mariadb.jdbc.Driver"
+   	  <!-- create db connection -->
+      <sql:setDataSource var="myDb" driver = "org.mariadb.jdbc.Driver"
          url = "jdbc:mariadb://localhost:3306/MY_SCHEMA"
          user = "MY_USER"  password = "admin"/>
+         
+      <!-- drop table -->
+      <sql:update dataSource="${myDb}" var="upNo">
+      		DROP TABLE if exists EMPLOYEE
+      </sql:update>
+      
+      <!-- create table -->
+      <sql:update dataSource="${myDb}" var="upNo">
+      		CREATE TABLE employee ( 
+			  id INT PRIMARY KEY AUTO_INCREMENT ,
+			  first_name VARCHAR(200) NOT NULL ,
+			  last_name VARCHAR(200) ,
+			  email VARCHAR(200) NOT NULL ,
+			  age INT ,
+			  phone_no VARCHAR(200)
+			)
+      </sql:update>
+      
+      <!-- insert record -->
+      <sql:update dataSource="${myDb}" var="upNo">
+      		INSERT INTO employee(first_name, email, age ) VALUES( 'john', 'john@google.com', 18 )
+      </sql:update>
+      
+      <sql:update dataSource="${myDb}" var="upNo">
+      		INSERT INTO employee(first_name, email, age ) VALUES( ?, ?, ? )
+      		<sql:param>Brown</sql:param>
+      		<sql:param>brown@google.com</sql:param>
+      		<sql:param>20</sql:param>
+      </sql:update>
  
-      <sql:query dataSource = "${snapshot}" var = "result">
+ 	  <!-- select table -->
+      <sql:query dataSource="${myDb}" var="result">
          SELECT id, first_name, last_name, email, age from EMPLOYEE where 1 = ?
          <sql:param>1</sql:param>
       </sql:query>
