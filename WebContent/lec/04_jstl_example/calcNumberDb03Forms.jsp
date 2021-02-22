@@ -66,7 +66,7 @@
 	</c:if>
 </c:if>
 
-<c:if test="${ not empty id or not empty selId }" >
+<c:if test="${ not empty id }" >
 	<!-- DB에서 id에 해당 연산 기록을 가져온다. -->
 	<sql:query dataSource="${myDb}" var="result">
 	   SELECT id, a, operator, b, c FROM MY_CALC_SUN WHERE id = NVL( ?, ? )
@@ -79,8 +79,7 @@
 		<c:set var="operator" value="${ row.operator }" />
 		<c:set var="b" value="${ row.b }" />
 		<c:set var="c" value="${ row.c }" />
-	</c:forEach>
-	
+	</c:forEach>	
 </c:if>
 
 <!-- DB에서 이전 연산 기록을 모두 가져온다. -->
@@ -124,7 +123,7 @@
 	b = <input type="number" step="any" name="b" id="b" value="${ b }" size=3 /> <br/><br/>
 	c = <input type="number" step="any"         value="${ c }" size=3 readonly></input> <br/><br/>
 	<c:if test="${ not empty param.selId or not empty param.id }" >
-	    <input type="hidden" name="selId" value="${ empty param.selId ? param.id : pram.selId }" />
+	    <input type="hidden" name="selId" value="${ empty param.selId ? param.id : param.selId }" />
 	</c:if>
 	<input type="submit" value="계산하기" />
 </form>
