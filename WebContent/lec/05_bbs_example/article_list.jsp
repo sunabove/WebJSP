@@ -8,7 +8,7 @@
 
 <%-- start of logic --%>
 
-<c:if test="${ empty sessionScope.userId }">
+<c:if test="${ empty sessionScope.userId or sessionScope.userId == '' }">
 	<%-- 로그인 세션 체크 / 미로그인시 로그인 페이지로 이동한다. --%>
 	<c:redirect url="user_login.jsp">
 	</c:redirect>
