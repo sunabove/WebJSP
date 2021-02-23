@@ -6,59 +6,70 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<%-- start of logic --%>
+
+<c:if test="${ empty sessionScope.userId }">
+	<%-- 로그인 세션 체크 / 미로그인시 로그인 페이지로 이동한다. --%>
+	<c:redirect url="user_login.jsp">
+	</c:redirect>
+</c:if>
+
+<!-- create database connection -->
+<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" 
+	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
+	
+<c:set var="board_id" value="${ param.board_id }" />
+	
+<!-- board list -->
+<sql:query dataSource="${myDb}" var="boardList">
+       SELECT board_id, board_name
+	FROM board WHERE DELETED = 0
+	ORDER BY board_id
+</sql:query>
+
+<!-- article list -->
+<sql:query dataSource="${myDb}" var="articleList">
+    SELECT ROW_NUMBER() OVER( ORDER BY a.article_id ) AS rno ,  
+    b.board_id, article_id, article_user_id, board_name, user_name, 
+	title, content, view_count, a.up_dt
+	FROM  
+	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
+	LEFT JOIN board b ON ( p.board_id = b.board_id )
+	LEFT JOIN article a ON ( b.board_id = a.board_id ) 
+	LEFT JOIN user u ON( a.article_user_id = u.user_id )
+	WHERE b.deleted = 0 AND a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
+	
+    <sql:param value="${ board_id }" />
+    <sql:param value="${ param.srch_keyword }" />
+</sql:query>
+
+<!-- article total count -->
+<sql:query dataSource="${myDb}" var="articleTotalCountRs">
+    SELECT COUNT(*) as cnt
+	FROM 
+	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
+	LEFT JOIN article a ON( p.board_id = a.board_id )
+	WHERE		
+	a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
+	
+    <sql:param value="${ board_id }" />
+    <sql:param value="${ param.srch_keyword }" />
+</sql:query>
+
+<c:forEach var="row" items="${articleTotalCountRs.rows}">
+	<c:set var="articleTotalCount" value="${ row.cnt }" />
+</c:forEach>
+
+<%-- end of logic --%>	
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <title>게시물 목록</title>
 </head>
 
 <body>
-	<!-- create db connection -->
-	<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver"
-		url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER"
-		password="admin" />
-		
-	<c:set var="board_id" value="${ param.board_id }" />
-		
-	<!-- board list -->
-	<sql:query dataSource="${myDb}" var="boardList">
-        SELECT board_id, board_name
-		FROM board WHERE DELETED = 0
-		ORDER BY board_id
-	</sql:query>
-
-	<!-- article list -->
-	<sql:query dataSource="${myDb}" var="articleList">
-        SELECT ROW_NUMBER() OVER( ORDER BY a.article_id ) AS rno ,  
-        b.board_id, article_id, article_user_id, board_name, user_name, 
-		title, content, view_count, a.up_dt
-		FROM  
-		( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
-		LEFT JOIN board b ON ( p.board_id = b.board_id )
-		LEFT JOIN article a ON ( b.board_id = a.board_id ) 
-		LEFT JOIN user u ON( a.article_user_id = u.user_id )
-		WHERE b.deleted = 0 AND a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
-        <sql:param value="${ board_id }" />
-        <sql:param value="${ param.srch_keyword }" />
-	</sql:query>
-	
-	<!-- article total count -->
-	<sql:query dataSource="${myDb}" var="articleTotalCountRs">
-        SELECT COUNT(*) as cnt
-		FROM 
-		( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
-		LEFT JOIN article a ON( p.board_id = a.board_id )
-		WHERE		
-		a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
-        <sql:param value="${ board_id }" />
-        <sql:param value="${ param.srch_keyword }" />
-	</sql:query>
-	
-	<c:forEach var="row" items="${articleTotalCountRs.rows}">
-		<c:set var="articleTotalCount" value="${ row.cnt }" />
-	</c:forEach>
-
 	<table border="1" cellspacing="0" width="100%">
 
 		<colgroup>
