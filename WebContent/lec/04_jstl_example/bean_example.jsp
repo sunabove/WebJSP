@@ -15,6 +15,11 @@
 </head>
 <body>
 
+	<% 
+		//lec.bean.MyBean myBean = new lec.bean.MyBean();
+		//request.setAttribute( "myBean", myBean ) ; 
+	%>
+	
 	<jsp:useBean id="myBean" class="lec.bean.MyBean" />
 	
 	${ myBean.name } </br>
