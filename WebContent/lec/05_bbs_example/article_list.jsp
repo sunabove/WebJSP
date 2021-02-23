@@ -101,9 +101,11 @@
 				</th>
 				<th colspan="3" align="right">
 					<form>
-						<input type="text" name="srch_keyword" value="${ param.srch_keyword }" />
-						<input type="submit" value="검색" width="100%"/>
-					</form>
+						<nobr>					
+							<input type="text" name="srch_keyword" value="${ param.srch_keyword }" size="30"/>
+							<input type="submit" value="검색" width="100%"/>
+						</nobr>
+					</form>					
 				</th>
 			</tr>
 			
@@ -122,8 +124,9 @@
 					<td align="right">${row.rno}</td>
 					<td>${row.title}</td>
 					<td align="center">${row.user_name}</td>
-					<td align="center"><fmt:formatDate value="${ row.up_dt }"
-							pattern="yyyy-MM-dd hh:mm:ss" /></td>
+					<td align="center">
+						<fmt:formatDate value="${ row.up_dt }" pattern="yyyy-MM-dd hh:mm:ss" />
+					</td>
 					<td align="right">${row.view_count}</td>
 				</tr>
 			</c:forEach>
