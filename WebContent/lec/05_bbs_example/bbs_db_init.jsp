@@ -54,6 +54,8 @@
 		out.println( "</pre>" );
 		
 		reader.close();
+		
+		out.println("<h3>The database is initialized sucessfully.</h3>");
 	}
 	%>
 

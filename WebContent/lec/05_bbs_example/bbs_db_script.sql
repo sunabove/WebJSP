@@ -1,21 +1,80 @@
 -- Hello
 
-DROP TABLE if exists cricketer ;
+-- drop tables 
+DROP TABLE if EXISTS db_file_log ;
+DROP TABLE if EXISTS db_file ;
+DROP TABLE if EXISTS article_reply ;
+DROP TABLE if EXISTS article ;
+DROP TABLE if EXISTS board ;
 
-CREATE TABLE if not exists cricketer (
-   First_Name VARCHAR(255),
-   Last_Name VARCHAR(255),
-   Date_Of_Birth date,
-   Place_Of_Birth VARCHAR(255),
-   Country VARCHAR(255)
-);
+DROP TABLE if EXISTS user_access_log ;
+DROP TABLE if EXISTS USER ;
+DROP TABLE if EXISTS CODE ;
+DROP TABLE if EXISTS SYS_PROP ;
 
-insert into cricketer values('Shikhar', 'Dhawan', DATE('1981-12-05'), 'Delhi', 'India');
-insert into cricketer values('Jonathan', 'Trott', DATE('1981-04-22'), 'CapeTown', 'SouthAfrica');
-insert into cricketer values('Kumara', 'Sangakkara', DATE('1977-10-27'), 'Matale', 'Srilanka');
-insert into cricketer values('Virat', 'Kohli', DATE('1988-11-05'), 'Delhi', 'India');
-insert into cricketer values('Rohit', 'Sharma', DATE('1987-04-30'), 'Nagpur', 'India');
+-- sys prop
 
-select * from cricketer;
+CREATE TABLE SYS_PROP (
+   prop_key VARCHAR(255) ,
+   value VARCHAR(255) ,
+	value_int INT ,
+	value_dbl DOUBLE ,
+	PRIMARY KEY ( prop_KEY, VALUE )  
+) ;
+
+-- code
+
+CREATE TABLE CODE ( 
+	p_code_id VARCHAR(255) ,
+	code_id VARCHAR(255) PRIMARY key ,
+	text_value VARCHAR(255),
+	num_value DOUBLE,
+	ord INT 
+) ;
+
+-- user
+
+CREATE TABLE USER (
+	user_id INT PRIMARY KEY AUTO_INCREMENT ,
+	NAME VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL ,
+	passwd VARCHAR(255) ,
+	last_login_dt TIMESTAMP  ,
+	last_logout_dt TIMESTAMP ,
+	role_code_id VARCHAR(255) NOT NULL DEFAULT 1
+) ; 
+
+-- user access log
+
+CREATE TABLE user_access_log (
+	user_access_log_id INT PRIMARY KEY AUTO_INCREMENT ,
+	user_id INT REFERENCES USER(user_id) ,
+	login_dt TIMESTAMP ,
+	logout_dt TIMESTAMP  
+) ; 
+
+-- board
+
+CREATE TABLE board(
+	board_id INT PRIMARY KEY AUTO_INCREMENT ,
+	board_name VARCHAR( 255 ) ,
+	up_dt TIMESTAMP ,
+	deleted INT NOT NULL DEFAULT 0	
+) ;
+
+-- article
+CREATE TABLE article (
+	board_id INT REFERENCES board( board_id ) , 
+	article_id INT PRIMARY KEY AUTO_INCREMENT ,
+	is_notice INT NOT NULL DEFAULT 0 ,
+	title VARCHAR(255) ,
+	content text ,
+	content_type VARCHAR(255) NOT NULL DEFAULT 'txt',
+	view_count INT NOT NULL DEFAULT 0,
+	up_dt TIMESTAMP ,
+	deleted INT NOT NULL DEFAULT 0
+) ;
+-- 
+
 
 -- Good bye!
