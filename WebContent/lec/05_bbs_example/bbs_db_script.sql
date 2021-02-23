@@ -111,11 +111,46 @@ INSERT INTO article( board_id , article_user_id, is_notice, title, content ) VAL
  ;
 
 SELECT * FROM article ;
- 
+
+SELECT b.board_id, article_id, article_user_id, board_name, user_name, 
+title, content, view_count, a.up_dt
+FROM  
+( SELECT NVL( NULL, 1 ) board_id ) AS p
+LEFT JOIN board b ON ( p.board_id = b.board_id )
+LEFT JOIN article a ON ( b.board_id = a.board_id ) 
+LEFT JOIN user u ON( a.article_user_id = u.user_id )
+;  
+
+-- Lee Dong Su Write
 -- article_replay
+CREATE TABLE ARTICLE_REPLY (
+	ARTICLE_ID		INT	REFERENCES ARTICLE( article_id ),
+	REPLY_USER_ID 	INT REFERENCES user ( user_id ),
+	REPLY_ID 		INT PRIMARY KEY AUTO_INCREMENT ,
+	CONTENT 			VARCHAR(255) NOT NULL  ,
+	UP_DT				TIMESTAMP DEFAULT NOW()
+) ;
 
 -- db_file
-
--- db_file_log 
+CREATE TABLE DB_FILE (
+	FILE_ID		INT PRIMARY KEY AUTO_INCREMENT ,
+	GUBUN_CODE	VARCHAR(255),
+	FILE_NO		INT ,
+	FILE_NAME 	VARCHAR(255),
+	FILE_PATH 	VARCHAR(255),
+	CONTENT 	BLOB ,
+	UP_USER_ID 	INT REFERENCES user ( user_id ) ,
+	UP_DT 		TIMESTAMP ,
+	DELETED 	INT NOT NULL DEFAULT 0
+) ;
+-- db_file_log
+CREATE TABLE DB_FILE_LOG(
+	FILE_LOG_ID	INT PRIMARY KEY,
+	FILE_ID		INT REFERENCES DB_FILE ( FILE_ID ),
+	USER_ID		INT REFERENCES user ( user_id ),
+	FILE_SIZE 	INT NOT NULL default 0 ,
+	IP_ADDR 		VARCHAR(255) ,
+	DNLD_RESULT INT NOT NULL DEFAULT 0
+);
 
 -- Good bye!
