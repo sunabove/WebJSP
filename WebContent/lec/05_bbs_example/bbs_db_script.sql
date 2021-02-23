@@ -107,6 +107,9 @@ INSERT INTO article( board_id , article_user_id, is_notice, title, content ) VAL
 ( 2, 1, 0, 'abcd as sdfdf', 'sd abcd efg' ) , 
 ( 2, 2, 0, 'ab asdf cd asdf', 'ssd d abcd efg' ) , 
 ( 2, 1, 0, 'adsf abc adsfd asdf', 'sd abcsdfd efsdf g' ) , 
+( 2, 2, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) ,
+( 2, 2, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) ,
+( 2, 2, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) ,
 ( 2, 2, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) 
  ;
 
