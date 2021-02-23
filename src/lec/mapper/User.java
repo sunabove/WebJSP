@@ -13,8 +13,8 @@ public class User implements java.io.Serializable {
 	
 	private String id ;
 	private String name;
-	private String phoneNo;
 	private String passwd;
+	private String phoneNo;	
 	
 	public static void main(String[] args) {
 		User user = new User();

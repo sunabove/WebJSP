@@ -34,21 +34,30 @@
         b.board_id, article_id, article_user_id, board_name, user_name, 
 		title, content, view_count, a.up_dt
 		FROM  
-		( SELECT NVL( ?, 1 ) board_id ) AS p
+		( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
 		LEFT JOIN board b ON ( p.board_id = b.board_id )
 		LEFT JOIN article a ON ( b.board_id = a.board_id ) 
 		LEFT JOIN user u ON( a.article_user_id = u.user_id )
-		WHERE b.deleted = 0 AND a.deleted = 0
-         <sql:param value="${ board_id }" />
+		WHERE b.deleted = 0 AND a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
+        <sql:param value="${ board_id }" />
+        <sql:param value="${ param.srch_keyword }" />
 	</sql:query>
 	
-	<!-- article total list -->
-	<sql:query dataSource="${myDb}" var="articleTotalCount">
+	<!-- article total count -->
+	<sql:query dataSource="${myDb}" var="articleTotalCountRs">
         SELECT COUNT(*) as cnt
-		FROM article a
-		WHERE a.board_id= ? AND a.deleted = 0
+		FROM 
+		( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
+		LEFT JOIN article a ON( p.board_id = a.board_id )
+		WHERE		
+		a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
         <sql:param value="${ board_id }" />
+        <sql:param value="${ param.srch_keyword }" />
 	</sql:query>
+	
+	<c:forEach var="row" items="${articleTotalCountRs.rows}">
+		<c:set var="articleTotalCount" value="${ row.cnt }" />
+	</c:forEach>
 
 	<table border="1" cellspacing="0" width="100%">
 
@@ -87,18 +96,14 @@
 				<th align="left" colspan="2" >
 					&nbsp;
 					<font size="2"> 
-					   총 
-					   	   <c:forEach var="row" items="${articleTotalCount.rows}">
-								${ row.cnt }
-							</c:forEach>
-					   건 
+					   총 <fmt:formatNumber value="${ articleTotalCount }" pattern="#,###" /> 건 
 					</font>					 
 				</th>
-				<th colspan="2" align="right">
-					<input type="text" name="srch_keyword" value="" width="100%"/>
-				</th>
-				<th align="left">
-					<input type="button" value="검색" width="100%"/>
+				<th colspan="3" align="right">
+					<form>
+						<input type="text" name="srch_keyword" value="${ param.srch_keyword }" />
+						<input type="submit" value="검색" width="100%"/>
+					</form>
 				</th>
 			</tr>
 			

@@ -15,8 +15,8 @@ DROP TABLE if EXISTS SYS_PROP ;
 -- sys prop
 
 CREATE TABLE SYS_PROP (
-   prop_key VARCHAR(255) ,
-   value VARCHAR(255) ,
+   prop_key  VARCHAR(255) ,
+   VALUE     VARCHAR(255) ,
 	value_int INT ,
 	value_dbl DOUBLE ,
 	PRIMARY KEY ( prop_KEY, VALUE )  
@@ -25,23 +25,24 @@ CREATE TABLE SYS_PROP (
 -- code
 
 CREATE TABLE CODE ( 
-	p_code_id VARCHAR(255) ,
-	code_id VARCHAR(255) PRIMARY key ,
-	text_value VARCHAR(255),
-	num_value DOUBLE,
+	p_code_id   VARCHAR(255) ,
+	code_id     VARCHAR(255) PRIMARY key ,
+	text_value  VARCHAR(255),
+	num_value   DOUBLE,
 	ord INT 
 ) ;
 
 -- user
 
 CREATE TABLE USER (
-	user_id INT PRIMARY KEY AUTO_INCREMENT ,
-	user_name VARCHAR(255) NOT NULL,
-	email VARCHAR(255) NOT NULL ,
-	passwd VARCHAR(255) ,
-	last_login_dt TIMESTAMP  ,
+	user_id        INT PRIMARY KEY AUTO_INCREMENT ,
+	user_name      VARCHAR(255) NOT NULL,
+	email          VARCHAR(255) NOT NULL ,
+	passwd         VARCHAR(255) ,
+	phone_no       VARCHAR(255) ,
+	last_login_dt  TIMESTAMP  ,
 	last_logout_dt TIMESTAMP ,
-	role_code_id VARCHAR(255) NOT NULL DEFAULT 1
+	role_code_id   VARCHAR(255) NOT NULL DEFAULT 1
 ) ; 
 
 -- insert user
@@ -49,15 +50,15 @@ INSERT INTO user( user_name, email , passwd ) VALUES
 ( 'admin', 'admin@gmail.com', 'admin' ) ,
 ( 'john', 'john@gmail.com', 'admin' ) ;
 
-SELECT * FROM user ;
+-- SELECT * FROM user ;
 
 -- user access log
 
 CREATE TABLE user_access_log (
 	user_access_log_id INT PRIMARY KEY AUTO_INCREMENT ,
-	user_id INT REFERENCES USER(user_id) ,
-	login_dt TIMESTAMP ,
-	logout_dt TIMESTAMP  
+	user_id            INT REFERENCES USER(user_id) ,
+	login_dt           TIMESTAMP ,
+	logout_dt          TIMESTAMP  
 ) ; 
 
 -- board
@@ -89,6 +90,8 @@ CREATE TABLE article (
 	up_dt TIMESTAMP ,
 	deleted INT NOT NULL DEFAULT 0
 ) ;
+
+-- insert sample article data
 
 INSERT INTO article( board_id , article_user_id, is_notice, title, content ) VALUES
 ( 1, 1, 1, 'abcd', 'abcd efg' ) ,
@@ -124,8 +127,10 @@ LEFT JOIN article a ON ( b.board_id = a.board_id )
 LEFT JOIN user u ON( a.article_user_id = u.user_id )
 ;  
 
--- Lee Dong Su Write
+-- Lee Dong Su Code
+
 -- article_replay
+
 CREATE TABLE ARTICLE_REPLY (
 	ARTICLE_ID		INT	REFERENCES ARTICLE( article_id ),
 	REPLY_USER_ID 	INT REFERENCES user ( user_id ),
@@ -135,17 +140,19 @@ CREATE TABLE ARTICLE_REPLY (
 ) ;
 
 -- db_file
+
 CREATE TABLE DB_FILE (
 	FILE_ID		INT PRIMARY KEY AUTO_INCREMENT ,
 	GUBUN_CODE	VARCHAR(255),
 	FILE_NO		INT ,
 	FILE_NAME 	VARCHAR(255),
 	FILE_PATH 	VARCHAR(255),
-	CONTENT 	BLOB ,
+	CONTENT 	   BLOB ,
 	UP_USER_ID 	INT REFERENCES user ( user_id ) ,
 	UP_DT 		TIMESTAMP ,
-	DELETED 	INT NOT NULL DEFAULT 0
+	DELETED 	   INT NOT NULL DEFAULT 0
 ) ;
+
 -- db_file_log
 CREATE TABLE DB_FILE_LOG(
 	FILE_LOG_ID	INT PRIMARY KEY,
