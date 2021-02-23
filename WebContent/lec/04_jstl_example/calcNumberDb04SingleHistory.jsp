@@ -113,7 +113,7 @@
 	
 	form#calculator > .operand {
 		display : inline ;
-		width: 40px;
+		width: 50px;
 		text-align: right;
 	}
 	
@@ -121,11 +121,13 @@
 		display : inline ; 
 		width: 40px;
 		text-align: right;
-		background-color: light-gray; 
+		background-color: gray; 
 	}
+	
 	form#calculator > input[ type='submit' ] {
 		margin-left: 20px ; 
 	}
+	
 </style>
 </head>
 <body>
