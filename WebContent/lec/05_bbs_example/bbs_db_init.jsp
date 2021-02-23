@@ -36,17 +36,21 @@
 		out.println("<h3>Connection established.</h3>");
 		
 		//Initialize the script runner
-		ScriptRunner sr = new ScriptRunner(conn);
-		//Creating a reader object
+		ScriptRunner scriptRunner = new ScriptRunner(conn);
 		
+		//Creating a reader object		
+		// scipt file 
 		String path = "/DEV/Workspace/WebJSP/WebContent/lec/05_bbs_example/bbs_db_script.sql";
+		
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-		PrintWriter logWriter = new PrintWriter( new PrintStream(baos, true, "utf-8" )  );	
+		PrintWriter logWriter = new PrintWriter( new PrintStream(baos, true, "utf-8" )  );
+		
 		//Running the script
-		sr.setLogWriter(logWriter); 
-		sr.runScript(reader); 
+		scriptRunner.setLogWriter(logWriter); 
+		scriptRunner.runScript(reader); 
+		
 		logWriter.flush();
 		
 		out.println( "<pre>" );

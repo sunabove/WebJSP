@@ -44,6 +44,13 @@ CREATE TABLE USER (
 	role_code_id VARCHAR(255) NOT NULL DEFAULT 1
 ) ; 
 
+-- insert user
+INSERT INTO user( user_name, email , passwd ) VALUES
+( 'admin', 'admin@gmail.com', 'admin' ) ,
+( 'john', 'john@gmail.com', 'admin' ) ;
+
+SELECT * FROM user ;
+
 -- user access log
 
 CREATE TABLE user_access_log (
@@ -57,15 +64,23 @@ CREATE TABLE user_access_log (
 
 CREATE TABLE board(
 	board_id INT PRIMARY KEY AUTO_INCREMENT ,
+	board_user_id INT REFERENCES user( user_id ),
 	board_name VARCHAR( 255 ) ,
 	up_dt TIMESTAMP ,
 	deleted INT NOT NULL DEFAULT 0	
 ) ;
 
+-- insert board
+INSERT INTO board ( board_name )
+VALUES( 'notice' ), ( 'free' ) ;
+
+SELECT * FROM board ;
+
 -- article
 CREATE TABLE article (
 	board_id INT REFERENCES board( board_id ) , 
 	article_id INT PRIMARY KEY AUTO_INCREMENT ,
+	article_user_id INT REFERENCES user( user_id ) , 
 	is_notice INT NOT NULL DEFAULT 0 ,
 	title VARCHAR(255) ,
 	content text ,
@@ -75,11 +90,11 @@ CREATE TABLE article (
 	deleted INT NOT NULL DEFAULT 0
 ) ;
 
+ 
 -- article_replay
 
 -- db_file
 
--- db_file_log
-
+-- db_file_log 
 
 -- Good bye!
