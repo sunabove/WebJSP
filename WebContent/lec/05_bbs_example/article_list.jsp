@@ -74,7 +74,7 @@
 						&nbsp;					
 						<select name="board_id" onchange="submit();">
 							<c:forEach var="row" items="${boardList.rows}">
-								<option value="${ row.board_id }">
+								<option value="${ row.board_id }" ${ row.board_id == board_id ? 'selected' : '' } >
 									${ row.board_name }
 								</option>
 							</c:forEach>
