@@ -74,7 +74,12 @@ CREATE TABLE article (
 	up_dt TIMESTAMP ,
 	deleted INT NOT NULL DEFAULT 0
 ) ;
--- 
+
+-- article_replay
+
+-- db_file
+
+-- db_file_log
 
 
 -- Good bye!
