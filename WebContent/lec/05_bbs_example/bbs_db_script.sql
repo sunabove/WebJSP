@@ -72,7 +72,7 @@ CREATE TABLE board(
 
 -- insert board
 INSERT INTO board ( board_name, board_user_id )
-VALUES( 'notice' , 1 ), ( 'free' , 2 ) ;
+VALUES( 'Notice' , 1 ), ( 'Free' , 2 ) ;
 
 SELECT * FROM board ;
 
