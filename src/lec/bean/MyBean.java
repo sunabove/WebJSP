@@ -3,6 +3,7 @@ package lec.bean;
 public class MyBean {
 	private String name = "John";
 	private boolean deleted;
+	private Boolean alive ; 
 	
 	public MyBean() {		
 	}
@@ -25,5 +26,13 @@ public class MyBean {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	public Boolean getAlive() {
+		return alive;
+	}
+
+	public void setAlive(Boolean alive) {
+		this.alive = alive;
 	}
 }
