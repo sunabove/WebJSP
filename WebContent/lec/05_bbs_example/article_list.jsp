@@ -18,9 +18,18 @@
 	<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver"
 		url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER"
 		password="admin" />
+		
+	<c:set var="board_id" value="${ param.board_id }" />
+		
+	<!-- board list -->
+	<sql:query dataSource="${myDb}" var="boardList">
+        SELECT board_id, board_name
+		FROM board WHERE DELETED = 0
+		ORDER BY board_id
+	</sql:query>
 
-	<!-- select table -->
-	<sql:query dataSource="${myDb}" var="result">
+	<!-- article list -->
+	<sql:query dataSource="${myDb}" var="articleList">
         SELECT ROW_NUMBER() OVER( ORDER BY a.article_id ) AS rno ,  
         b.board_id, article_id, article_user_id, board_name, user_name, 
 		title, content, view_count, a.up_dt
@@ -29,43 +38,70 @@
 		LEFT JOIN board b ON ( p.board_id = b.board_id )
 		LEFT JOIN article a ON ( b.board_id = a.board_id ) 
 		LEFT JOIN user u ON( a.article_user_id = u.user_id )
-         <sql:param value="${ 1 }" />
+		WHERE b.deleted = 0 AND a.deleted = 0
+         <sql:param value="${ board_id }" />
+	</sql:query>
+	
+	<!-- article total list -->
+	<sql:query dataSource="${myDb}" var="articleTotalCount">
+        SELECT COUNT(*) as cnt
+		FROM article a
+		WHERE a.board_id= ? AND a.deleted = 0
+        <sql:param value="${ board_id }" />
 	</sql:query>
 
 	<table border="1" cellspacing="0" width="100%">
 
 		<colgroup>
 			<!-- No -->
-			<col width="10%"/>
+			<col width="5%"/>
 			<!-- Title -->
 			<col width=""/>
 			<!-- Writer -->
 			<col width="10%"/>
 			<!-- Up date -->
-			<col width="20%"/>
+			<col width="150"/>
 			<!-- View count -->
-			<col width="10%"/>			
+			<col width="7%"/>			
 		</colgroup>
 
 		<thead>
 			<tr>
 				<th colspan="100%" align="left">
-					<select>
-						<option>Notice</option>
-					</select>
+					<form>
+						&nbsp; 
+						<font size="2"> 게시판</font>	 
+						&nbsp;					
+						<select name="board_id" onchange="submit();">
+							<c:forEach var="row" items="${boardList.rows}">
+								<option value="${ row.board_id }">
+									${ row.board_name }
+								</option>
+							</c:forEach>
+						</select>
+					</form>
 				</th>
 			</tr>
+			
 			<tr>
 				<th align="left" colspan="2" >
-					총 123,456건 
+					&nbsp;
+					<font size="2"> 
+					   총 
+					   	   <c:forEach var="row" items="${articleTotalCount.rows}">
+								${ row.cnt }
+							</c:forEach>
+					   건 
+					</font>					 
 				</th>
 				<th colspan="2" align="right">
-					<input type="text" value="" width="100%"/>
+					<input type="text" name="srch_keyword" value="" width="100%"/>
 				</th>
 				<th align="left">
 					<input type="button" value="검색" width="100%"/>
 				</th>
 			</tr>
+			
 			<tr>
 				<th>No.</th>
 				<th>제목</th>
@@ -76,7 +112,7 @@
 		</thead>
 
 		<tbody>
-			<c:forEach var="row" items="${result.rows}">
+			<c:forEach var="row" items="${articleList.rows}">
 				<tr>
 					<td align="right">${row.rno}</td>
 					<td>${row.title}</td>
@@ -90,7 +126,11 @@
 
 		<tfoot>
 			<tr>
-				<td colspan="100%">&nbsp;</td>
+				<td colspan="100%" align="center">
+					<c:forEach var="i" begin="1" end="9" step="1" varStatus ="status">
+						<a href="#">${i}</a> &nbsp;
+					</c:forEach>
+				</td>
 			</tr>
 		</tfoot>
 
