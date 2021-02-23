@@ -65,14 +65,14 @@ CREATE TABLE user_access_log (
 CREATE TABLE board(
 	board_id INT PRIMARY KEY AUTO_INCREMENT ,
 	board_user_id INT REFERENCES user( user_id ),
-	board_name VARCHAR( 255 ) unique ,
+	board_name VARCHAR( 255 ) UNIQUE ,
 	up_dt TIMESTAMP ,
 	deleted INT NOT NULL DEFAULT 0	
 ) ;
 
 -- insert board
-INSERT INTO board ( board_name )
-VALUES( 'notice' ), ( 'free' ) ;
+INSERT INTO board ( board_name, board_user_id )
+VALUES( 'notice' , 1 ), ( 'free' , 2 ) ;
 
 SELECT * FROM board ;
 
@@ -90,6 +90,27 @@ CREATE TABLE article (
 	deleted INT NOT NULL DEFAULT 0
 ) ;
 
+INSERT INTO article( board_id , article_user_id, is_notice, title, content ) VALUES
+( 1, 1, 1, 'abcd', 'abcd efg' ) ,
+( 1, 2, 1, 'abcd def', 'abcd efg gjgi' ) ,
+( 1, 2, 0, 'abcd asdf', 'sd absd cd efg' ) , 
+( 1, 1, 0, 'abcd asdf asdf', 'sd abcd efg' ) , 
+( 1, 2, 0, 'abcd as sdfdf', 'sd abcd efg' ) , 
+( 1, 1, 0, 'ab asdf cd asdf', 'ssd d abcd efg' ) , 
+( 1, 2, 0, 'adsf abc adsfd asdf', 'sd abcsdfd efsdf g' ) , 
+( 1, 1, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) , 
+
+( 2, 1, 1, 'abcd', 'abcd efg' ) ,
+( 2, 2, 1, 'abcd def', 'abcd efg gjgi' ) ,
+( 2, 1, 0, 'abcd asdf', 'sd absd cd efg' ) , 
+( 2, 2, 0, 'abcd asdf asdf', 'sd abcd efg' ) , 
+( 2, 1, 0, 'abcd as sdfdf', 'sd abcd efg' ) , 
+( 2, 2, 0, 'ab asdf cd asdf', 'ssd d abcd efg' ) , 
+( 2, 1, 0, 'adsf abc adsfd asdf', 'sd abcsdfd efsdf g' ) , 
+( 2, 2, 0, 'wecf abcd asdf', 'sd absdf cd efg' ) 
+ ;
+
+SELECT * FROM article ;
  
 -- article_replay
 
