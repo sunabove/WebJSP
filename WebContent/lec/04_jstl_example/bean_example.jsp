@@ -26,6 +26,10 @@
 	
 	${ myBean.name = 'Good' } <br/>
 	
-	${ myBean.name } 
+	${ myBean.deleted = true } <br/>
+	
+	${ myBean.name } <br/>
+	
+	${ myBean.deleted } <br/>
 </body>
 </html>
