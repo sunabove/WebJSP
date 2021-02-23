@@ -65,7 +65,7 @@ CREATE TABLE user_access_log (
 CREATE TABLE board(
 	board_id INT PRIMARY KEY AUTO_INCREMENT ,
 	board_user_id INT REFERENCES user( user_id ),
-	board_name VARCHAR( 255 ) ,
+	board_name VARCHAR( 255 ) unique ,
 	up_dt TIMESTAMP ,
 	deleted INT NOT NULL DEFAULT 0	
 ) ;
