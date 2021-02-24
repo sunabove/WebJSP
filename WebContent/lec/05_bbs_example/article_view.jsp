@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>글쓰기</title>
+<title>글 조회</title>
 <meta charset="utf-8">
 </head>
 <body>
