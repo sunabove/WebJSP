@@ -8,7 +8,7 @@
 
 <%-- start of logic --%>
 
-<c:if test="${ empty sessionScope.userId or sessionScope.userId == '' }">
+<c:if test="${ empty sessionScope.userId }">
 	<%-- 로그인 세션 체크 / 미로그인시 로그인 페이지로 이동한다. --%>
 	<c:redirect url="user_login.jsp">
 	</c:redirect>
@@ -100,13 +100,15 @@
 							</c:forEach>
 						</select>
 						
-						&nbsp;
+						&nbsp;&nbsp;
 						
 						<font size="2">
-							* 접속자명 : 홍길동 님
-							&nbsp;
+							* 접속자명 : ${userName}
+							&nbsp;&nbsp;
 							* <a href="user_logout.jsp">로그 아웃</a>
-							* 총 접속자 : ${ applicationScope.totalConnCount } 명
+							* 총 접속자 :
+								<fmt:formatNumber value="${ articleTotalCount }" pattern="#,###" /> 
+							  명
 							&nbsp;
 						</font>
 					</form>
