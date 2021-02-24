@@ -36,7 +36,9 @@ public class EmployeeMapperTest {
 		mapper.update(employee);
 		
 		employee = mapper.selectOne(12);
-		mapper.delete(employee);
+		if( null != employee ) {
+			mapper.delete(employee);
+		}
 		
 		List<Employee> employees = mapper.selectAll();
 		
