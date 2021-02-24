@@ -154,8 +154,9 @@
 			</tr>
 		</thead>
 
-		<tbody>
+		<tbody>			
 			<c:forEach var="row" items="${articleList.rows}">
+				<c:set var="trCnt" value="${ trCnt + 1 }" />
 				<tr>
 					<td align="right">${row.rno}</td>
 					<td>${row.title}</td>
@@ -166,6 +167,10 @@
 					<td align="right">${row.view_count}</td>
 				</tr>
 			</c:forEach>
+			
+			<c:forEach var="i" begin="{ trCnt }" end="10" step="1" varStatus ="status">
+				
+			</c:forEach>
 		</tbody>
 
 		<tfoot>
@@ -174,6 +179,7 @@
 					<c:set var="page_no" value="${ empty param.page_no ? 1 : param.page_no }" />
 					<c:set var="row_cnt" value="${ empty param.row_cnt ? 10 : param.row_cnt }" />
 					
+					<a href="#" onclick="page_no.value= 1; page_form.submit();"> 처음 </a> &nbsp
 					<c:forEach var="i" begin="${ page_no < 2 ? 1 : page_no - 1 }" 
 									   end="${ (articleTotalCount mod 10) + 1 }" step="1" varStatus ="status">
 						<a href="#" onclick="page_no.value=${i}; page_form.submit();">${i}</a> &nbsp;
