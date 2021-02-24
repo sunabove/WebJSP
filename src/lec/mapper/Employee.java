@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 
 public class Employee implements java.io.Serializable {
+	private static final long serialVersionUID = -8606757535392399280L;
+	
 	private String id ;
 	private String firstName ;
 	private String lastName ;
