@@ -37,6 +37,9 @@
 
 	<c:if test="${ not empty sessionScope.userId }">
 		<%-- 로그인 성공하면, 목록 화면으로 이동 --%>
+		
+		<%-- 로그인시마다, 총접자수를 1씩 증가시킨다. --%>
+		<c:set var="totalConnCount" scope="application" value="${applicationScope.totalConnCount + 1}" />
 
 		<c:redirect url="article_list.jsp">
 		</c:redirect>

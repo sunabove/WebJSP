@@ -105,8 +105,8 @@
 						<font size="2">
 							* 접속자명 : 홍길동 님
 							&nbsp;
-							* <a href="#">로그 아웃</a>
-							* 총 접속자 1,234 명
+							* <a href="user_logout.jsp">로그 아웃</a>
+							* 총 접속자 : ${ applicationScope.totalConnCount } 명
 							&nbsp;
 						</font>
 					</form>
