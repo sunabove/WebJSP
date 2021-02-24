@@ -9,13 +9,15 @@
 
 <%-- start of logic --%>
 
+<%-- 세션 체크 기능이 필요 없으면 삭제하여야 합니다. --%>
 <c:if test="${ empty sessionScope.userId }">
 	<%-- 로그인 세션 체크 / 미로그인시 로그인 페이지로 이동한다. --%>
 	<c:redirect url="user_login.jsp">
 	</c:redirect>
 </c:if>
+<%-- // 세션 체크 기능이 필요 없으면 삭제하여야 합니다. --%>
 
-<!-- create database connection -->
+<!-- 데이터베이스 연결 -->
 <sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" 
 	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
 	
