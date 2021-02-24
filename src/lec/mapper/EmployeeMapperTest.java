@@ -42,7 +42,7 @@ public class EmployeeMapperTest {
 		
 		List<Employee> employees = mapper.selectAll();
 		
-		for( Employee e : employees ) {
+		for( var e : employees ) {
 			out.println( e );
 		} 
 		

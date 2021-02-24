@@ -38,7 +38,7 @@ public class UserMapperTest {
 		
 		List<User> users = mapper.selectAll();
 		
-		for( User e : users ) {
+		for( var e : users ) {
 			System.out.println( e );
 		} 
 		

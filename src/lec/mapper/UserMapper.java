@@ -11,7 +11,7 @@ public interface UserMapper {
 	
 	@Select( "SELECT * FROM my_user WHERE name=#{name} AND passwd = #{passwd}" )
 	User logIn( User user );
-	//User logIn( String name, String passwd );
+	//User logIn( String name, String passwd ); // 에러 발생 
 
 	@Select( "SELECT * FROM my_user" )
 	List<User> selectAll();
