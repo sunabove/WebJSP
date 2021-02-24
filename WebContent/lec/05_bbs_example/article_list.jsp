@@ -39,8 +39,13 @@
 	LEFT JOIN user u ON( a.article_user_id = u.user_id )
 	WHERE b.deleted = 0 AND a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
 	
+	LIMIT ?, ? 
+	
     <sql:param value="${ board_id }" />
     <sql:param value="${ param.srch_keyword }" />
+    
+    <sql:param value="${ empty param.page_no ? 0 : (param.page_no -1)*10 }" />
+    <sql:param value="${ empty param.row_cnt ? 10 : ( param.row_cnt + 0 ) }" />
 </sql:query>
 
 <!-- article total count -->
@@ -158,9 +163,19 @@
 		<tfoot>
 			<tr>
 				<td colspan="100%" align="center">
-					<c:forEach var="i" begin="1" end="9" step="1" varStatus ="status">
-						<a href="#">${i}</a> &nbsp;
-					</c:forEach>
+					<c:set var="page_no" value="${ empty param.page_no ? 1 : param.page_no }" />
+					<c:set var="row_cnt" value="${ empty param.row_cnt ? 10 : param.row_cnt }" />
+					
+					<c:forEach var="i" begin="${ page_no < 2 ? 1 : page_no - 1 }" 
+									   end="${ (articleTotalCount mod 10) + 1 }" step="1" varStatus ="status">
+						<a href="#" onclick="page_no.value=${i}; page_form.submit();">${i}</a> &nbsp;
+					</c:forEach> 
+					 
+					<form id="page_form" >
+						<input type="hidden" name="page_no" id="page_no" value="${ page_no }"/>
+						<input type="hidden" name=row_cnt   id="row_cnt" value="${ row_cnt }"/>
+						<input type="hidden" name="srch_keyword" value="${ param.srch_keyword }" />
+					</form>
 				</td>
 			</tr>
 		</tfoot>
