@@ -20,6 +20,63 @@
 <!-- 데이터베이스 연결 -->
 <sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" 
 	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
+
+<c:set var="board_id" value="${ empty param.board_id ? 1 : param.board_id }" />
+
+<jsp:useBean id="now" class="java.util.Date" />
+	
+<sql:query var="board" dataSource="${myDb}" >
+	select board_name from board where board_id = ? 
+	<sql:param>${ board_id }</sql:param>
+</sql:query>
+
+<c:forEach var="row" items="${board.rows}">
+	<c:set var="boardName" value="${ row.board_name }" />
+</c:forEach>
+
+<c:set var="articleId" value="${ param.article_id }" />
+<c:set var="articleTitle" value="${ param.title }" />
+<c:set var="articleContent" value="${ param.content }" />
+
+<c:if test="${ empty articleId  and ( not empty articleTitle and not empty articleContent ) }" >
+	<sql:transaction dataSource="${myDb}"  >
+		<sql:update var="upNo" >
+			INSERT INTO article( board_id, article_user_id, title, content ) VALUES
+			( ?, ?, ?, ? )
+			<sql:param>${ board_id }</sql:param>
+			<sql:param>${ userId }</sql:param>
+			<sql:param>${ articleTitle }</sql:param>
+			<sql:param>${ articleContent }</sql:param>
+		</sql:update>
+		
+		<sql:query var="lastId" >
+		    SELECT LAST_INSERT_ID() as last_id
+		</sql:query >
+		
+		<h1>article inserted.</h1>
+	
+		<c:forEach var="row" items="${lastId.rows}">
+			<c:set var="articleId" value="${ row.last_id }" />
+		</c:forEach>
+		
+		<h1>article id = ${ articleId }</h1>
+		
+	</sql:transaction>
+</c:if>
+
+<c:if test="${ not empty articleId and ( not empty articleTitle and not empty articleContent ) }" >
+	<sql:update var="upNo" dataSource="${myDb}" >
+		UPDATE article SET
+		title  = ? ,
+		content = ?
+		WHERE article_id = ?
+		<sql:param>${ articleTitle }</sql:param>
+		<sql:param>${ articleContent }</sql:param>
+		<sql:param>${ articleId }</sql:param>
+	</sql:update>
+</c:if>
+
+<%-- end of of logic --%>
 	
 <!DOCTYPE html>
 <html lang="ko">
@@ -27,9 +84,107 @@
 <title>글쓰기</title>
 <meta charset="utf-8">
 </head>
-<body>
+<body style="max-width: 600px; margin: auto; text-align: center;">
 
-<h3> Hello, World! </h3>
+<h3> 글쓰기 </h3>
+
+<form>
+<table border="1" width="100%" cellspacing="1">
+	<colgroup>
+		<col width="40"/>
+		<col/> 
+		
+		<col/>
+		<col/>
+		
+		<col width="50"/>
+	</colgroup>
+	
+	<thead>
+		<tr>
+			<th colspan="2" align="left"><font size="2"> * 게시판 : ${ boardName } </font>
+			</th>
+			<th colspan="3" align="right">
+				<font size="2">
+					* ${userName} 님
+					&nbsp;
+					* <a href="user_logout.jsp">로그 아웃</a>
+					&nbsp;&nbsp;
+					* 총 접속자 :
+						<fmt:formatNumber value="${ applicationScope.totalConnCount }" pattern="#,###" /> 
+					  명
+					&nbsp;
+				</font>
+			</th>  
+		</tr> 
+	</thead>
+	
+	<tbody>
+		<tr>
+			<td colspan="2" align="left">
+				<input type="button" value="이전 글" /> 
+				<input type="button" value="다음 글" />
+			</td>
+			<td colspan="3" align="right">
+				<input type="button" value="목록" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left">
+				<input type="text" value="* 제목" disabled size="4" />
+			</td>
+			<td colspan="2" align="left">
+				<input type="text" name="title" value="${ articleTitle }" size="36" />
+			</td>
+			<td colspan="2" align="right">
+				<input type="text" disabled size="14" value="작성일 : <fmt:formatDate value='${ now }' pattern='yyyy-MM-dd' />" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td align="left">
+				<input type="text" value="* 작성자" disabled size="4" />
+			</td>
+			<td colspan="4" align="left">
+				<input type="text" value="${ userName }" size="5" disabled />
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="100%">
+				<textarea name="content" style="width: 99%; height: 200px;">${ articleContent }</textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="1" align="left" >
+				<input type="text" size="4" value="* 댓글" disabled />
+			</td>
+			<td colspan="3" align="left" >
+				<input type="text" size="80"/>
+			</td>
+			<td align="right">
+				<input type="button" value="등록" />
+			</td>
+		</tr> 
+	</tbody>
+	
+	<tfoot>
+		<tr>
+			<td colspan="100%" align="center">
+				<input type="hidden" name="board_id" value="${ param.board_id }" />
+				<input type="hidden" name="article_id" value="${ articleId }" />
+				<input type="submit" value="저장" /> 
+				<input type="button" value="취소" />
+				&nbsp;&nbsp;
+				<input type="button" value="삭제" />
+			</td>
+		</tr>
+	</tfoot>
+	
+</table>
+</form>
 
 </body>
 </html>

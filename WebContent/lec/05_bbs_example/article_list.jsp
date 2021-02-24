@@ -17,7 +17,7 @@
 <sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" 
 	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
 	
-<c:set var="board_id" value="${ param.board_id }" />
+<c:set var="board_id" value="${ empty param.board_id ? 1 : param.board_id }" />
 	
 <!-- board list -->
 <sql:query dataSource="${myDb}" var="boardList">
@@ -117,7 +117,7 @@
 							* <a href="user_logout.jsp">로그 아웃</a>
 							&nbsp;&nbsp;
 							* 총 접속자 :
-								<fmt:formatNumber value="${ articleTotalCount }" pattern="#,###" /> 
+								<fmt:formatNumber value="${ applicationScope.totalConnCount }" pattern="#,###" /> 
 							  명
 							&nbsp;
 						</font>
@@ -134,10 +134,11 @@
 				</th>
 				<th colspan="1" align="center" >
 					<form action="article_edit.jsp" >
+						<input type="hidden" name="board_id" value="${ empty param.board_id ? 1 : param.board_id }" /> 
 						<input type="submit" value="글쓰기" />
 					</form>
 				</th>
-				<th colspan="2" align="right" > 
+				<th colspan="2" align="right" >
 					<form>
 						<input type="text" name="srch_keyword" value="${ param.srch_keyword }" size="15"/>
 						<input type="submit" value="검색" width="100%"/>
