@@ -71,10 +71,15 @@
 <head>
 <meta charset="UTF-8" />
 <title>게시물 목록</title>
+<style>
+	table { dipaly: inline; white-space:nowrap; }
+	form { dipaly: inline; white-space:nowrap; }
+	input { dipaly: inline; white-space:nowrap; }
+</style>
 </head>
 
 <body>
-	<table border="1" cellspacing="0" width="100%">
+	<table border="1" cellspacing="0" width="100%" >
 
 		<colgroup>
 			<!-- No -->
@@ -84,7 +89,7 @@
 			<!-- Writer -->
 			<col width="10%"/>
 			<!-- Up date -->
-			<col width="150"/>
+			<col width="160"/>
 			<!-- View count -->
 			<col width="7%"/>			
 		</colgroup>
@@ -107,9 +112,10 @@
 						&nbsp;&nbsp;
 						
 						<font size="2">
-							* 접속자명 : ${userName}
-							&nbsp;&nbsp;
+							* ${userName} 님
+							&nbsp;
 							* <a href="user_logout.jsp">로그 아웃</a>
+							&nbsp;&nbsp;
 							* 총 접속자 :
 								<fmt:formatNumber value="${ articleTotalCount }" pattern="#,###" /> 
 							  명
@@ -126,12 +132,15 @@
 					   총 <fmt:formatNumber value="${ articleTotalCount }" pattern="#,###" /> 건 
 					</font>					 
 				</th>
-				<th colspan="3" align="right">
+				<th colspan="1" align="center" >
+					<form action="article_edit.jsp" >
+						<input type="submit" value="글쓰기" />
+					</form>
+				</th>
+				<th colspan="2" align="right" > 
 					<form>
-						<nobr>					
-							<input type="text" name="srch_keyword" value="${ param.srch_keyword }" size="30"/>
-							<input type="submit" value="검색" width="100%"/>
-						</nobr>
+						<input type="text" name="srch_keyword" value="${ param.srch_keyword }" size="15"/>
+						<input type="submit" value="검색" width="100%"/>
 					</form>					
 				</th>
 			</tr>
