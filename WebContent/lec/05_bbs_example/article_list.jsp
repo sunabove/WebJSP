@@ -168,7 +168,7 @@
 				</tr>
 			</c:forEach>
 			
-			<c:forEach var="i" begin="{ trCnt }" end="10" step="1" varStatus ="status">
+			<c:forEach var="i" begin="${ trCnt }" end="10" step="1" varStatus ="status">
 				
 			</c:forEach>
 		</tbody>
