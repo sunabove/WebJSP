@@ -12,6 +12,7 @@
 
 	<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
 
+	<!-- DB에서 이름과 암호가 동일한 유저의 존재 여부를 체크한다. -->
 	<sql:query dataSource="${ myDb }" var="result">
 	   SELECT user_id, user_name 
 	   FROM 
@@ -28,6 +29,7 @@
 	<c:set var="userId" scope="session" value="" />
 	<c:set var="userName" scope="session" value="" />
 
+	<%-- 로그인 정보를 세션에 저장한다. --%>
 	<c:forEach var="row" items="${result.rows}">
 		<c:set var="userId" scope="session" value="${row.user_id}" />
 		<c:set var="userName" scope="session" value="${row.user_name}" />
