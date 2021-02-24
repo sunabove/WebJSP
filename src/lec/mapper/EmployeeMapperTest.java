@@ -14,6 +14,8 @@ public class EmployeeMapperTest {
 		InputStream inputStream = Resources.getResourceAsStream( "mybatis-config.xml" );
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);		
 		
+		var out = System.out;
+		
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
@@ -26,7 +28,9 @@ public class EmployeeMapperTest {
 		mapper.insert(employee);
 		
 		employee = mapper.selectOne(1);
-		System.out.println(employee); 
+		
+		out.println();
+		out.println(employee); 
 		
 		employee.setFirstName( "ABCDEF" );
 		mapper.update(employee);
@@ -37,7 +41,7 @@ public class EmployeeMapperTest {
 		List<Employee> employees = mapper.selectAll();
 		
 		for( Employee e : employees ) {
-			System.out.println( e );
+			out.println( e );
 		} 
 		
 		session.commit();
