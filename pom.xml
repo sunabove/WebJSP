@@ -35,6 +35,25 @@
 	</build>
 
 	<dependencies>
+	
+		<!-- 
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
+			<scope>provided</scope>
+		</dependency> 
+		
+		 -->
+
 		<!-- JSTL -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -48,8 +67,8 @@
 			<version>1.1.2</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- // JSTL --> 
-		
+		<!-- // JSTL -->
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -81,20 +100,6 @@
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.3</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
