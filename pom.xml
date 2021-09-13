@@ -35,24 +35,11 @@
 	</build>
 
 	<dependencies>
-	
-		<!-- 
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.3</version>
-			<scope>provided</scope>
-		</dependency> 
-		
-		 -->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
+			<version>4.0.1</version> <scope>provided</scope> </dependency> <dependency> 
+			<groupId>javax.servlet.jsp</groupId> <artifactId>javax.servlet.jsp-api</artifactId> 
+			<version>2.3.3</version> <scope>provided</scope> </dependency> -->
 
 		<!-- JSTL -->
 		<dependency>
@@ -93,6 +80,13 @@
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.7.1</version>
+		</dependency>
+
+		<!-- oracle jdbc -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
 		</dependency>
 
 		<!-- javax.mail -->
