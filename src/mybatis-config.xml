@@ -9,10 +9,10 @@
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="org.mariadb.jdbc.Driver" />
-				<property name="url" value="jdbc:mariadb://localhost:3306/MY_SCHEMA" />
-				<property name="username" value="MY_USER" />
-				<property name="password" value="admin" />
+				<property name="driver" value="oracle.jdbc.Driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
+				<property name="username" value="john" />
+				<property name="password" value="a" />
 			</dataSource>
 		</environment>
 	</environments>
