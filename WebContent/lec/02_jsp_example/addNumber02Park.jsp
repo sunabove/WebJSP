@@ -10,7 +10,6 @@
 <body>
 ​
 	<%
-	// 박 보람 작성 
 	
 	String n1 = request.getParameter( "n1" );
 	String n2 = request.getParameter( "n2" );
