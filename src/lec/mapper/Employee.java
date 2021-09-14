@@ -11,12 +11,20 @@ import lombok.extern.slf4j.Slf4j;
 public class Employee implements java.io.Serializable {
 	private static final long serialVersionUID = -8606757535392399280L;
 	
-	private String id ;
-	private String firstName ;
-	private String lastName ;
-	private String email ;
+	private Integer id ;
+	private String firstName = "" ;
+	private String lastName = "" ;
+	private String email = "" ;
 	private Integer age = 0 ;
-	private String phoneNo;
+	private String phoneNo = "";
+	
+	public Employee() {
+		
+	}
+	
+	public Employee(int id) {
+		this.id = id;
+	}
 	
 	public void testLog() {
 		this.log.debug( "Here, I am!");
@@ -25,7 +33,7 @@ public class Employee implements java.io.Serializable {
 	public static void main(String[] args) {
 		Employee emp = new Employee();
 		
-		String empId = emp.getId() ; 
+		var empId = emp.getId() ; 
 		
 		System.out.println( "Hello World!" );
 		System.out.println( "empId = " + empId );

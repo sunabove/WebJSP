@@ -21,21 +21,22 @@ public class EmployeeMapperTest {
 		EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
 		
 		Employee employee ;
-		employee = new Employee();
+		employee = new Employee(1);
 		employee.setFirstName( "My John");
 		employee.setEmail( "My John@google.com");
 		
-		mapper.insert(employee);
+		var id = mapper.insert(employee);
+		out.println( "id = " + id );
 		
 		employee = mapper.selectOne(1);
 		
 		out.println();
-		out.println(employee); 
+		out.println("EMP = " + employee); 
 		
 		employee.setFirstName( "ABCDEF" );
 		mapper.update(employee);
 		
-		employee = mapper.selectOne(12);
+		employee = mapper.selectOne(2);
 		if( null != employee ) {
 			mapper.delete(employee);
 		}
@@ -43,7 +44,7 @@ public class EmployeeMapperTest {
 		List<Employee> employees = mapper.selectAll();
 		
 		for( var e : employees ) {
-			out.println( e );
+			out.println( "EMP = " + e );
 		} 
 		
 		session.commit();
