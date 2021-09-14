@@ -19,17 +19,19 @@ public class UserMapperTest {
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		
 		User user ;
-		user = new User(); 
+		user = new User(1); 
 		user.setName( "john");
 		user.setPasswd( "admin");
 		
-		mapper.insert(user);
+		var id = mapper.insert(user);
+		
+		System.out.println( "id = " + id );
 		
 		user = mapper.selectOne(1);
-		System.out.println(user); 
+		System.out.println("USER = " + user); 
 		
 		user.setName( "ABCDEF" );
-		mapper.update(user);
+		mapper.update( user);
 		
 		user = mapper.selectOne(12);
 		if( user != null ) { 

@@ -11,15 +11,23 @@ import lombok.extern.slf4j.Slf4j;
 public class User implements java.io.Serializable {
 	private static final long serialVersionUID = -704899523852130939L;
 	
-	private String id ;
-	private String name;
-	private String passwd;
-	private String phoneNo;	
+	private Integer id ;
+	private String name = "" ;
+	private String passwd = "" ;
+	private String phoneNo = "" ;	
+	
+	public User() {
+		
+	}
+	
+	public User(int id) {
+		this.id = id;
+	}
 	
 	public static void main(String[] args) {
 		User user = new User();
 		
-		String userId = user.getId() ; 
+		var userId = user.getId() ; 
 		
 		System.out.println( "Hello World!" );
 		System.out.println( "userId = " + userId );
