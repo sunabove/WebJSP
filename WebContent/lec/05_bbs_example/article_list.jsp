@@ -14,8 +14,8 @@
 </c:if>
 
 <!-- create database connection -->
-<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" 
-	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
+<sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
+	url="jdbc:oracle:thin:@localhost:1521:orcl" user="john" password="a" scope="application" />
 	
 <c:set var="board_id" value="${ empty param.board_id ? 1 : param.board_id }" />
 	

@@ -9,10 +9,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!-- create db connection -->
-<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver"
-	url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER"
-	password="admin" />
+<!-- 데이터베이스 연결 -->
+<sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
+	url="jdbc:oracle:thin:@localhost:1521:orcl" user="john" password="a" scope="application" />
+
 
 
 <!DOCTYPE html>

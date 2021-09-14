@@ -10,7 +10,9 @@
 <c:if test="${ not empty param.userId and not empty param.passwd }">
 	<%-- 로그인 처리 --%>
 
-	<sql:setDataSource var="myDb" driver="org.mariadb.jdbc.Driver" url="jdbc:mariadb://localhost:3306/MY_SCHEMA" user="MY_USER" password="admin" />
+	<!-- 데이터베이스 연결 -->
+	<sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
+		url="jdbc:oracle:thin:@localhost:1521:orcl" user="john" password="a" scope="application" />
 
 	<!-- DB에서 이름과 암호가 동일한 유저의 존재 여부를 체크한다. -->
 	<sql:query dataSource="${ myDb }" var="result">
