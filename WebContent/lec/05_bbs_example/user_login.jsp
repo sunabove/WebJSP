@@ -18,12 +18,11 @@
 	<sql:query dataSource="${ myDb }" var="result">
 	   SELECT user_id, user_name 
 	   FROM 
-	   (select ? p_user_name, ? p_passwd FROM DUAL ) as p,
-	   user u  
+	   (select ? p_user_name, ? p_passwd FROM DUAL ) p,
+	   users u  
 	   WHERE 1 = 1
 	   AND p_user_name IN ( u.user_name, u.email ) 
-	   AND u.passwd = p_passwd 
-	   LIMIT 1
+	   AND u.passwd = p_passwd  
 	   <sql:param value="${param.userId}" />
 		<sql:param value="${param.passwd}" />
 	</sql:query>
