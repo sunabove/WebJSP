@@ -14,7 +14,7 @@
 
    <body>
    	  <!-- create db connection -->
-     <sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
+      <sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
 		url="jdbc:oracle:thin:@localhost:1521:orcl" user="john" password="a" scope="application" />
          
       <!-- drop table -->
