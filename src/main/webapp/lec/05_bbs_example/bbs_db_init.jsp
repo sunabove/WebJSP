@@ -9,12 +9,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!-- 데이터베이스 연결 -->
-<sql:setDataSource var="myDb" driver="oracle.jdbc.driver.OracleDriver" 
-	url="jdbc:oracle:thin:@localhost:1521:orcl" user="john" password="a" scope="application" />
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +22,10 @@
 	<%
 	if (true) {
 		//Registering the Driver
-		Class.forName("org.mariadb.jdbc.Driver");
+		Class.forName("oracle.jdbc.driver.OracleDriver");
 
 		//Getting the connection
-		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/MY_SCHEMA", "MY_USER", "admin");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "john", "a");
 
 		out.println("<h3>Connection established.</h3>");
 		
@@ -40,7 +34,8 @@
 		
 		//Creating a reader object		
 		// scipt file 
-		String path = "/DEV/Workspace/WebJSP/WebContent/lec/05_bbs_example/bbs_db_script.sql";
+		// C:\DEV\Workspace\WebJSP\src\main\webapp\lec\05_bbs_example
+		String path = "/DEV/Workspace/WebJSP/src/main/webapp/lec/05_bbs_example/bbs_db_script_oracle.sql";
 		
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
