@@ -58,11 +58,10 @@
       <jsp:useBean id="now" class="java.util.Date" />
       
       <sql:update dataSource="${myDb}" var="upNo">
-      		INSERT INTO employee(first_name, email, age, up_dt ) VALUES( ?, ?, ?, ? )
+      		INSERT INTO employee(first_name, email, age ) VALUES( ?, ?, ? )
       		<sql:param>Brown</sql:param>
       		<sql:param>brown@google.com</sql:param>
-      		<sql:param value="20" />
-      		<sql:dateParam value="${ now }" />
+      		<sql:param value="20" /> 
       </sql:update>
       
       <c:if test="${ upNo eq 0 }" >
@@ -76,11 +75,10 @@
       	  <c:set var="item" value="${fn:split( record, ',' )}" />
       	  
       	  <sql:update dataSource="${myDb}" var="upNo">
-      		INSERT INTO employee(first_name, email, age, up_dt ) VALUES( ?, ?, ?, ? )
+      		INSERT INTO employee(first_name, email, age ) VALUES( ?, ?, ? )
       		<sql:param value="${ item[0] }" />
       		<sql:param value="${ item[1] }" />
-      		<sql:param value="${ item[2] }" />
-      		<sql:param value="${ now }" />
+      		<sql:param value="${ item[2] }" /> 
       	  </sql:update>
       	  
       	  <c:if test="${ upNo eq 0 }" >
@@ -115,7 +113,7 @@
                <td> ${row.last_name} </td>
                <td> ${row.email} </td>
                <td> ${row.age} </td>
-               <td> <fmt:formatDate value="${ row.up_dt }" pattern="yyyy-MM-dd hh:mm:ss"/> </td>
+               <td> ${ row.up_dt } </td>
             </tr>
          </c:forEach>
       </table>
