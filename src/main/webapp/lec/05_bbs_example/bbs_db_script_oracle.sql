@@ -123,8 +123,6 @@ LEFT JOIN article a ON ( b.board_id = a.board_id )
 LEFT JOIN users u ON( a.article_user_id = u.user_id )
 ;
 
--- Lee Dong Su Code
-
 -- article_replay
 
 CREATE TABLE ARTICLE_REPLY (
