@@ -47,9 +47,9 @@ CREATE TABLE USERS (
 
 -- insert user
 INSERT INTO users( user_name, email , passwd ) VALUES
-( 'admin', 'admin@gmail.com', 'admin' ) ;
+( 'admin', 'admin@gmail.com', 'a' ) ;
 INSERT INTO users( user_name, email , passwd ) VALUES
-( 'john', 'john@gmail.com', 'admin' ) ;
+( 'john', 'john@gmail.com', 'a' ) ;
 
 -- SELECT * FROM user ;
 
@@ -85,7 +85,7 @@ CREATE TABLE article (
 	article_user_id INT REFERENCES users( user_id ) ,
 	is_notice INT DEFAULT 0 NOT NULL ,
 	title VARCHAR(255) ,
-	content VARCHAR(2550) ,
+	content VARCHAR(4000) ,
 	content_type VARCHAR(255) DEFAULT 'txt' NOT NULL ,
 	view_count INT DEFAULT 0 NOT NULL ,
 	up_dt TIMESTAMP ,
