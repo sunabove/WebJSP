@@ -4,7 +4,7 @@
 <%@ page import="java.io.*, java.util.*, java.sql.*"%>
 <%@ page import="org.apache.ibatis.io.Resources"%>
 <%@ page import="org.apache.ibatis.session.*"%>
-<%@ page import="org.mariadb.jdbc.Driver"%>
+<%@ page import="oracle.jdbc.driver.OracleDriver"%>
 
 <%@ page import="lec.mapper.*"%>
 
