@@ -1,6 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>WebJSP</groupId>
 	<artifactId>WebJSP</artifactId>
@@ -42,18 +42,12 @@
 			<version>2.3.3</version> <scope>provided</scope> </dependency> -->
 
 		<!-- JSTL -->
+		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-			<scope>compile</scope>
-		</dependency>
+		</dependency>  
 		<!-- // JSTL -->
 
 		<dependency>
