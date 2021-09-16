@@ -50,7 +50,8 @@
 		</sql:update>
 		
 		<sql:query var="lastId" >
-		    SELECT LAST_INSERT_ID() as last_id
+		    SELECT MAX(article_id) as last_id FROM article where board_id = ?
+		    <sql:param>${ board_id }</sql:param> 
 		</sql:query >
 		
 		<h1>article inserted.</h1>

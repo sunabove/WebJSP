@@ -21,7 +21,7 @@
 	
 <!-- board list -->
 <sql:query dataSource="${myDb}" var="boardList">
-       SELECT board_id, board_name
+    SELECT board_id, board_name
 	FROM board WHERE DELETED = 0
 	ORDER BY board_id
 </sql:query>
@@ -31,14 +31,13 @@
     SELECT ROW_NUMBER() OVER( ORDER BY a.article_id ) AS rno ,  
     b.board_id, article_id, article_user_id, board_name, user_name, 
 	title, content, view_count, a.up_dt
-	FROM 
-	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) p
+	FROM
+	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword FROM dual ) p
 	LEFT JOIN board b ON ( p.board_id = b.board_id )
 	LEFT JOIN article a ON ( b.board_id = a.board_id ) 
 	LEFT JOIN users u ON( a.article_user_id = u.user_id )
-	WHERE b.deleted = 0 AND a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
-	
-	LIMIT ?, ? 
+	WHERE b.deleted = 0 AND a.deleted = 0 AND ( srch_keyword IS NULL OR 0 < INSTR( title, srch_keyword ) )
+	OFFSET ? ROWS FETCH NEXT ? ROWS ONLY 
 	
     <sql:param value="${ board_id }" />
     <sql:param value="${ param.srch_keyword }" />
@@ -51,7 +50,7 @@
 <sql:query dataSource="${myDb}" var="articleTotalCountRs">
     SELECT COUNT(*) as cnt
 	FROM 
-	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword ) AS p
+	( SELECT NVL( ?, 1 ) board_id, NVL( ?, '' ) as srch_keyword FROM dual ) p
 	LEFT JOIN article a ON( p.board_id = a.board_id )
 	WHERE		
 	a.deleted = 0 AND 0 < INSTR( title, srch_keyword )
@@ -162,9 +161,7 @@
 					<td align="right">${row.rno}</td>
 					<td>${row.title}</td>
 					<td align="center">${row.user_name}</td>
-					<td align="center">
-						<fmt:formatDate value="${ row.up_dt }" pattern="yyyy-MM-dd hh:mm:ss" />
-					</td>
+					<td align="center"> ${ row.up_dt } </td>
 					<td align="right">${row.view_count}</td>
 				</tr>
 			</c:forEach>
