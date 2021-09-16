@@ -12,8 +12,8 @@ public interface EmployeeMapper {
 	@Select( "SELECT * FROM employee" )
 	List<Employee> selectAll();
 
-	@Insert( "INSERT INTO employee( id, first_name, last_name, email, age, phone_no ) "
-			+ " VALUES( #{id}, #{firstName}, #{lastName}, #{email}, #{age}, #{phoneNo} )" )
+	@Insert( "INSERT INTO employee( first_name, last_name, email, age, phone_no ) "
+			+ " VALUES( #{firstName}, #{lastName}, #{email}, #{age}, #{phoneNo} )" )
 	int insert(Employee employee);
 
 	@Update( "UPDATE employee SET first_name = #{firstName}, last_name = #{lastName}, phone_no = #{phoneNo} "

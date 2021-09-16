@@ -19,7 +19,7 @@ public class UserMapperTest {
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		
 		User user ;
-		user = new User(1); 
+		user = new User(); 
 		user.setName( "john");
 		user.setPasswd( "admin");
 		
@@ -27,7 +27,7 @@ public class UserMapperTest {
 		
 		System.out.println( "id = " + id );
 		
-		user = mapper.selectOne(1);
+		user = mapper.selectOne(id);
 		System.out.println("USER = " + user); 
 		
 		user.setName( "ABCDEF" );

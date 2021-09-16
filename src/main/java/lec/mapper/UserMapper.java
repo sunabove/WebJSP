@@ -16,8 +16,8 @@ public interface UserMapper {
 	@Select( "SELECT * FROM my_user" )
 	List<User> selectAll();
 
-	@Insert( "INSERT INTO my_user( id, name, passwd, phone_no ) "
-			+ " VALUES( #{id}, #{name}, #{passwd}, #{phoneNo} )" )
+	@Insert( "INSERT INTO my_user( name, passwd, phone_no ) "
+			+ " VALUES( #{name}, #{passwd}, #{phoneNo} )" )
 	int insert(User user);
 
 	@Update( "UPDATE my_user SET name = #{name}, passwd = #{passwd}, phone_no = #{phoneNo} "
