@@ -87,3 +87,5 @@ local.properties
 /src/test
 /WebContent/my
 /src/my
+src/rebel-remote.xml
+src/rebel.xml
